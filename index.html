@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Social Issues 轉述句挑戰 (Tenses & Questions)</title>
+<title>Social Issues 轉述句挑戰 (Tenses Master)</title>
 <style>
   :root{
     --bg: #ffffff;
@@ -149,11 +149,9 @@
   }
   @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
   
-  /* 答對題解：黑底白字 */
   .fb-correct{background:var(--correct-bg);border:2px solid var(--border);color:var(--correct-text);}
   .fb-correct .tagline{background:#ffffff;color:#000000;}
   
-  /* 答錯題解：白底粗黑框 */
   .fb-wrong{background:#ffffff;border:3px solid var(--border);color:var(--text-main);}
   .fb-wrong .tagline{background:var(--text-main);color:#ffffff;}
   
@@ -217,14 +215,14 @@
   <!-- ================= 開始畫面 ================= -->
   <section id="startScreen" class="card">
     <h1>🌍 Social Issues 轉述句挑戰</h1>
-    <p class="sub">Tenses × Pronouns × Questions × Orders</p>
+    <p class="sub">Continuous & Perfect Tenses × Questions × Orders</p>
     <div class="rulebox">
-      根據 PDF 範圍及進階要求：<br>
-      • <b>時態轉換</b>：Present ➔ Past, Past ➔ Past Perfect, Will ➔ Would<br>
-      • <b>轉述問句</b>：Wh- 問句及 Yes/No 問句（注意語序及 if）<br>
-      • <b>命令與請求</b>：told/asked + object + (not) to-infinitive<br><br>
-      ⏱ 彈性計時：Level 1 (20秒) ➔ Level 2 (25秒) ➔ Level 3 (30秒)<br>
-      📝 共 <b>40 題</b>｜難度漸進 (1空 ➔ 2空 ➔ 3空)｜最後有錯題總結
+      嚴格遵守 PDF 範圍，並加入高階時態考驗：<br>
+      • <b>進行式 (Continuous)</b>：is doing ➔ was doing, was doing ➔ had been doing<br>
+      • <b>完成式 (Perfect)</b>：has done ➔ had done, has been doing ➔ had been doing<br>
+      • <b>轉述問句</b>：Wh- 及 Yes/No 問句（注意語序及 if）<br>
+      • <b>精準轉換</b>：原句沒有 "here"，答案絕不擅自加 "there"<br><br>
+      ⏱ 彈性計時：20 秒 ➔ 25 秒 ➔ 30 秒｜共 <b>40 題</b>｜難度漸進
     </div>
     <button class="bigbtn" onclick="startGame()">開始挑戰 ▶</button>
   </section>
@@ -274,57 +272,57 @@
 <script>
 /* ============================================================
    題庫：40 題
-   包含 Statements, Questions (Wh- / Yes-No), Orders/Requests
-   強調 Tense changes, Pronoun changes, Time/Place changes
+   包含 Statements, Questions, Orders/Requests
+   強調 Continuous/Perfect Tense changes, Pronoun changes
    ============================================================ */
 const QUESTIONS = [
 
-  /* ---------- Level 1: 1 Blank (20 秒) - Focus on Tenses/Modals ---------- */
-  { direct: '"I am worried about the homeless," said Tom.', text: "Tom said he ___ worried about the homeless.", options: ["is","was","were","had been"], answer: 1, tag: "Level 1 - Tense Change", explain: "直接引語的現在式 <b>am</b>，轉述時要變成過去式 <b>was</b> (主語是 he)。" },
-  { direct: '"We need better healthcare," they said.', text: "They said they ___ better healthcare.", options: ["need","needed","had needed","needs"], answer: 1, tag: "Level 1 - Tense Change", explain: "直接引語的現在式 <b>need</b>，轉述時要變成過去式 <b>needed</b>。" },
-  { direct: '"I will join the protest tomorrow," she said.', text: "She said she ___ join the protest the next day.", options: ["will","would","can","could"], answer: 1, tag: "Level 1 - Modal Change", explain: "直接引語的 <b>will</b>，轉述時要變成 <b>would</b>。" },
-  { direct: '"I can help the poor," the man said.', text: "The man said he ___ help the poor.", options: ["can","could","would","should"], answer: 1, tag: "Level 1 - Modal Change", explain: "直接引語的 <b>can</b>，轉述時要變成 <b>could</b>。" },
+  /* ---------- Level 1: 1 Blank (20 秒) - Focus on Continuous & Perfect Tenses ---------- */
+  { direct: '"I am looking for a job," he said.', text: "He said he ___ looking for a job.", options: ["is","was","were","had been"], answer: 1, tag: "Level 1 - Past Continuous", explain: "現在進行式 <b>am looking</b>，轉述時要變成過去進行式 <b>was looking</b>。" },
+  { direct: '"We have started a campaign," she said.', text: "She said they ___ started a campaign.", options: ["have","had","has","were"], answer: 1, tag: "Level 1 - Past Perfect", explain: "現在完成式 <b>have started</b>，轉述時要變成過去完成式 <b>had started</b>。" },
+  { direct: '"I have been waiting for hours," the man said.', text: "The man said he ___ been waiting for hours.", options: ["have","has","had","was"], answer: 2, tag: "Level 1 - Past Perfect Continuous", explain: "現在完成進行式 <b>have been waiting</b>，轉述時要變成過去完成進行式 <b>had been waiting</b>。" },
+  { direct: '"The workers are protesting," she said.', text: "She said the workers ___ protesting.", options: ["are","were","had been","was"], answer: 1, tag: "Level 1 - Past Continuous", explain: "現在進行式 <b>are protesting</b>，轉述時要變成過去進行式 <b>were protesting</b>。" },
+  { direct: '"I will join the protest tomorrow," she said.', text: "She said she ___ join the protest the next day.", options: ["would","will","can","could"], answer: 0, tag: "Level 1 - Modal Change", explain: "直接引語的 <b>will</b>，轉述時要變成 <b>would</b>。" },
+  { direct: '"This problem is serious," said the mayor.', text: "The mayor said ___ problem was serious.", options: ["this","these","that","those"], answer: 2, tag: "Level 1 - Demonstrative", explain: "轉述時，<b>this</b> (這個) 通常會變成 <b>that</b> (那個)。" },
+  { direct: '"I saw the pollution yesterday," he said.', text: "He said he had seen the pollution ___.", options: ["the day before","yesterday","tomorrow","the next day"], answer: 0, tag: "Level 1 - Time Change", explain: "直接引語的 <b>yesterday</b>，轉述時要變成 <b>the day before</b>。" },
+  { direct: '"The government must act now," they said.', text: "They said the government ___ act then.", options: ["must","has to","could","had to"], answer: 3, tag: "Level 1 - Modal Change", explain: "直接引語的 <b>must</b> 表示必須，轉述時通常變成 <b>had to</b>。" },
   { direct: '"My family is struggling," said the worker.', text: "The worker said ___ family was struggling.", options: ["my","his","her","their"], answer: 1, tag: "Level 1 - Pronoun Change", explain: "說話者 (worker) 是男性，<b>My</b> 要轉換成第三人稱的 <b>his</b>。" },
-  { direct: '"We are building a shelter here," he said.', text: "He said they were building a shelter ___.", options: ["here","there","where","everywhere"], answer: 1, tag: "Level 1 - Place Change", explain: "直接引語的 <b>here</b> (這裡)，轉述時要變成 <b>there</b> (那裡)。" },
-  { direct: '"This problem is serious," said the mayor.', text: "The mayor said ___ problem was serious.", options: ["this","that","these","those"], answer: 1, tag: "Level 1 - Demonstrative", explain: "轉述時，<b>this</b> (這個) 通常會變成 <b>that</b> (那個)。" },
-  { direct: '"I saw the pollution yesterday," he said.', text: "He said he had seen the pollution ___.", options: ["yesterday","the day before","tomorrow","the next day"], answer: 1, tag: "Level 1 - Time Change", explain: "直接引語的 <b>yesterday</b>，轉述時要變成 <b>the day before</b>。" },
-  { direct: '"The government must act now," they said.', text: "They said the government ___ act then.", options: ["must","had to","has to","could"], answer: 1, tag: "Level 1 - Modal Change", explain: "直接引語的 <b>must</b> 表示必須，轉述時通常變成 <b>had to</b>。" },
-  { direct: '"We have started a campaign," she said.', text: "She said they ___ started a campaign.", options: ["have","had","has","were"], answer: 1, tag: "Level 1 - Tense Change", explain: "直接引語的現在完成式 <b>have started</b>，轉述時要變成過去完成式 <b>had started</b>。" },
+  { direct: '"I have finished my report," she said.', text: "She said she ___ finished her report.", options: ["has","have","had","was"], answer: 2, tag: "Level 1 - Past Perfect", explain: "現在完成式 <b>have finished</b>，轉述時要變成過去完成式 <b>had finished</b>。" },
 
   /* ---------- Level 2: 2 Blanks (25 秒) - Tense + Pronoun/Time/Place ---------- */
-  { direct: '"I will change my policy tomorrow," the mayor said.', text: "The mayor said he would change ___ policy ___.", options: ["his / the next day","her / tomorrow","his / tomorrow","her / the next day"], answer: 0, tag: "Level 2 - Pronoun + Time", explain: "市長是男性，<b>my</b> 變 <b>his</b>；<b>tomorrow</b> 變 <b>the next day</b>。" },
-  { direct: '"I lost my job yesterday," the man said.', text: "The man said he ___ lost his job ___.", options: ["has / yesterday","had / the day before","had / yesterday","has / the day before"], answer: 1, tag: "Level 2 - Tense + Time", explain: "直接引語的過去式 <b>lost</b> 變過去完成式 <b>had lost</b>；<b>yesterday</b> 變 <b>the day before</b>。" },
+  { direct: '"I am organizing my protest tomorrow," she said.', text: "She said she ___ organizing ___ protest the next day.", options: ["is / her","was / her","was / my","is / my"], answer: 1, tag: "Level 2 - Tense + Pronoun", explain: "現在進行式 <b>am organizing</b> 變過去進行式 <b>was organizing</b>；<b>my</b> 變 <b>her</b>。" },
+  { direct: '"I lost my job yesterday," the man said.', text: "The man said he ___ lost his job ___.", options: ["has / yesterday","had / yesterday","had / the day before","has / the day before"], answer: 2, tag: "Level 2 - Tense + Time", explain: "直接引語的過去式 <b>lost</b> 變過去完成式 <b>had lost</b>；<b>yesterday</b> 變 <b>the day before</b>。" },
   { direct: '"Please help us," the villagers asked.', text: "The villagers asked us ___ help ___.", options: ["to / them","to / us","for / them","not to / them"], answer: 0, tag: "Level 2 - Request + Pronoun", explain: "轉述請求用 ask someone <b>to</b> do something；<b>us</b> (村民) 轉述時變成 <b>them</b>。" },
   { direct: '"Don\'t pollute this river," the ranger told them.', text: "The ranger told them ___ pollute ___ river.", options: ["to not / this","not to / that","not to / this","to not / that"], answer: 1, tag: "Level 2 - Order + Demonstrative", explain: "否定的命令用 <b>not to</b> pollute；<b>this</b> 轉述時變成 <b>that</b>。" },
-  { direct: '"We are fighting for our rights," they said.', text: "They said they ___ fighting for ___ rights.", options: ["are / our","were / their","were / our","are / their"], answer: 1, tag: "Level 2 - Tense + Pronoun", explain: "現在進行式 <b>are</b> 變過去進行式 <b>were</b>；<b>our</b> 變 <b>their</b> (他們的)。" },
-  { direct: '"I can see the pollution here," she said.', text: "She said she ___ see the pollution ___.", options: ["can / here","could / there","could / here","can / there"], answer: 1, tag: "Level 2 - Modal + Place", explain: "<b>can</b> 變 <b>could</b>；<b>here</b> 變 <b>there</b>。" },
-  { direct: '"You must apply for the subsidy," I told him.', text: "I told him he ___ apply for the subsidy.", options: ["must","had to","has to","could"], answer: 1, tag: "Level 2 - Modal Change", explain: "直接引語的 <b>must</b> 表示必須，轉述時變成過去式 <b>had to</b>。" },
-  { direct: '"I bought these clothes yesterday," she said.', text: "She said she had bought ___ clothes ___.", options: ["these / yesterday","those / the day before","those / yesterday","these / the day before"], answer: 1, tag: "Level 2 - Demonstrative + Time", explain: "<b>these</b> 變 <b>those</b>；<b>yesterday</b> 變 <b>the day before</b>。" },
+  { direct: '"We have been fighting for our rights," they said.', text: "They said they ___ been fighting for ___ rights.", options: ["have / our","had / their","had / our","have / their"], answer: 1, tag: "Level 2 - Perfect Continuous", explain: "現在完成進行式 <b>have been fighting</b> 變 <b>had been fighting</b>；<b>our</b> 變 <b>their</b>。" },
+  { direct: '"You must apply for the subsidy," I told him.', text: "I told him he ___ apply for the subsidy.", options: ["must","has to","had to","could"], answer: 2, tag: "Level 2 - Modal Change", explain: "直接引語的 <b>must</b> 表示必須，轉述時變成過去式 <b>had to</b>。" },
+  { direct: '"I bought these clothes yesterday," she said.', text: "She said she had bought ___ clothes ___.", options: ["those / the day before","these / yesterday","those / yesterday","these / the day before"], answer: 0, tag: "Level 2 - Demonstrative + Time", explain: "<b>these</b> 變 <b>those</b>；<b>yesterday</b> 變 <b>the day before</b>。" },
   { direct: '"Please don\'t ignore our request," the citizens said.', text: "The citizens asked us ___ ignore ___ request.", options: ["not to / their","to not / their","not to / our","to not / our"], answer: 0, tag: "Level 2 - Request + Pronoun", explain: "否定請求用 <b>not to</b> ignore；<b>our</b> (公民的) 轉述時變成 <b>their</b>。" },
-  { direct: '"We will build a new school here," the mayor said.', text: "The mayor said they ___ build a new school ___.", options: ["will / here","would / there","would / here","will / there"], answer: 1, tag: "Level 2 - Modal + Place", explain: "<b>will</b> 變 <b>would</b>；<b>here</b> 變 <b>there</b>。" },
+  { direct: '"We were discussing the issue," the committee said.', text: "The committee said they ___ discussing the issue.", options: ["are","were","had been","have been"], answer: 2, tag: "Level 2 - Past Perfect Continuous", explain: "過去進行式 <b>were discussing</b> 變過去完成進行式 <b>had been discussing</b>。" },
+  { direct: '"I can see the problem now," she said.', text: "She said she ___ see the problem ___.", options: ["could / then","can / now","could / now","can / then"], answer: 0, tag: "Level 2 - Modal + Time", explain: "<b>can</b> 變 <b>could</b>；<b>now</b> 變 <b>then</b>。" },
 
-  /* ---------- Level 3: Questions & Complex (25-30 秒) ---------- */
+  /* ---------- Level 3: Questions (25 秒) ---------- */
   { direct: '"Where is the shelter?" the reporter asked.', text: "The reporter asked where the shelter ___.", options: ["is","was","were","had been"], answer: 1, tag: "Level 3 - Reported Question", explain: "轉述 Wh- 問句時，動詞 <b>is</b> 要變成過去式 <b>was</b>，且語序為主語 (the shelter) + 動詞。" },
   { direct: '"Do you need help?" the volunteer asked me.', text: "The volunteer asked me ___ I ___ help.", options: ["that / need","if / needed","if / need","that / needed"], answer: 1, tag: "Level 3 - Yes/No Question", explain: "轉述 Yes/No 問句用 <b>if</b> 連接；動詞 <b>need</b> 變成過去式 <b>needed</b>。" },
-  { direct: '"What is the cause of poverty?" the student asked.', text: "The student asked what the cause of poverty ___.", options: ["is","was","were","are"], answer: 1, tag: "Level 3 - Reported Question", explain: "轉述問句時，動詞 <b>is</b> 變成 <b>was</b>，且保持「主語 + 動詞」的正常語序。" },
-  { direct: '"Can we solve this problem?" he asked.', text: "He asked ___ they ___ solve that problem.", options: ["if / can","if / could","that / could","that / can"], answer: 1, tag: "Level 3 - Yes/No Question", explain: "轉述 Yes/No 問句用 <b>if</b>；情態動詞 <b>can</b> 變成 <b>could</b>。" },
-  { direct: '"Why are you protesting here?" the police asked them.', text: "The police asked them why they ___ protesting ___.", options: ["are / here","were / there","were / here","are / there"], answer: 1, tag: "Level 3 - Wh- Question", explain: "現在進行式 <b>are</b> 變過去進行式 <b>were</b>；<b>here</b> 變 <b>there</b>。" },
-  { direct: '"Have you seen the report?" she asked me.', text: "She asked me ___ I ___ seen the report.", options: ["that / have","if / had","if / have","that / had"], answer: 1, tag: "Level 3 - Yes/No Question", explain: "Yes/No 問句用 <b>if</b>；現在完成式 <b>have seen</b> 變過去完成式 <b>had seen</b>。" },
+  { direct: '"What are you doing?" the police asked him.', text: "The police asked him what he ___ doing.", options: ["is","was","were","had been"], answer: 1, tag: "Level 3 - Wh- Continuous", explain: "現在進行式 <b>are doing</b> 變過去進行式 <b>was doing</b>，且語序為主語 + 動詞。" },
+  { direct: '"Have you seen the report?" she asked me.', text: "She asked me ___ I ___ seen the report.", options: ["that / have","if / had","if / have","that / had"], answer: 1, tag: "Level 3 - Yes/No Perfect", explain: "Yes/No 問句用 <b>if</b>；現在完成式 <b>have seen</b> 變過去完成式 <b>had seen</b>。" },
+  { direct: '"Why were you protesting?" the officer asked them.', text: "The officer asked them why they ___ protesting.", options: ["are","were","had been","have been"], answer: 2, tag: "Level 3 - Wh- Perfect Continuous", explain: "過去進行式 <b>were protesting</b> 變過去完成進行式 <b>had been protesting</b>。" },
+  { direct: '"Have you been waiting long?" he asked me.', text: "He asked me ___ I ___ been waiting long.", options: ["if / have","if / had","that / had","that / have"], answer: 1, tag: "Level 3 - Yes/No Perfect Continuous", explain: "用 <b>if</b>；現在完成進行式 <b>have been waiting</b> 變過去完成進行式 <b>had been waiting</b>。" },
   { direct: '"How can I help the community?" I asked her.', text: "I asked her how I ___ help the community.", options: ["can","could","would","should"], answer: 1, tag: "Level 3 - Wh- Question", explain: "轉述問句時，情態動詞 <b>can</b> 變成 <b>could</b>。" },
   { direct: '"Will you join our campaign tomorrow?" he asked me.', text: "He asked me ___ I would join ___ campaign the next day.", options: ["if / their","that / their","if / our","that / our"], answer: 0, tag: "Level 3 - Yes/No + Pronoun", explain: "Yes/No 問句用 <b>if</b>；<b>our</b> (他的團隊) 轉述時變成 <b>their</b>。" },
   { direct: '"What did you buy yesterday?" she asked him.', text: "She asked him what he ___ bought ___.", options: ["has / yesterday","had / the day before","had / yesterday","has / the day before"], answer: 1, tag: "Level 3 - Wh- Question", explain: "過去式 <b>did buy</b> 變成過去完成式 <b>had bought</b>；<b>yesterday</b> 變 <b>the day before</b>。" },
-  { direct: '"Are they building a new hospital here?" the doctor asked.', text: "The doctor asked ___ they ___ building a new hospital ___.", options: ["if / were / there","that / were / there","if / are / here","that / are / here"], answer: 0, tag: "Level 3 - Yes/No Question", explain: "用 <b>if</b> 引導；<b>are</b> 變 <b>were</b>；<b>here</b> 變 <b>there</b>。" },
+  { direct: '"Are they building a new hospital?" the doctor asked.', text: "The doctor asked ___ they ___ building a new hospital.", options: ["that / were","if / are","if / were","that / are"], answer: 2, tag: "Level 3 - Yes/No Question", explain: "用 <b>if</b> 引導；<b>are</b> 變 <b>were</b>。原句沒有 here，不需加 there。" },
 
   /* ---------- Level 4: 3 Blanks (30 秒) - Ultimate Challenge ---------- */
-  { direct: '"I am organizing a protest here tomorrow," she said.', text: "She said she ___ organizing a protest ___ ___.", options: ["was / there / the next day","is / here / tomorrow","was / here / the next day","is / there / tomorrow"], answer: 0, tag: "Level 4 - Tense + Place + Time", explain: "<b>am</b> 變 <b>was</b>；<b>here</b> 變 <b>there</b>；<b>tomorrow</b> 變 <b>the next day</b>。" },
-  { direct: '"Please tell them that I am waiting for my order," the customer said.', text: "The customer asked me to tell ___ that ___ was waiting for ___ order.", options: ["them / she / her","they / she / her","them / he / his","they / he / his"], answer: 0, tag: "Level 4 - Request + Pronoun", explain: "轉述請求 (asked me to tell)；<b>them</b> 不變；<b>I</b> 變 <b>she</b> (女顧客)；<b>my</b> 變 <b>her</b>。" },
-  { direct: '"Where did they put the recycling bins?" the resident asked.', text: "The resident asked where they ___ put the recycling bins ___.", options: ["have / there","had / there","had / here","have / here"], answer: 1, tag: "Level 4 - Question + Tense", explain: "過去式 <b>did put</b> 變過去完成式 <b>had put</b>；<b>there</b> 是轉述後的地點。" },
-  { direct: '"We must reduce pollution for our environment," they said.', text: "They said they ___ reduce pollution for ___ environment ___.", options: ["must / their / there","had to / their / there","had to / our / there","must / our / there"], answer: 1, tag: "Level 4 - Modal + Pronoun", explain: "<b>must</b> 變 <b>had to</b>；<b>our</b> 變 <b>their</b>。" },
+  { direct: '"I am organizing a protest here tomorrow," she said.', text: "She said she ___ organizing a protest ___ ___.", options: ["was / there / the next day","is / here / tomorrow","was / here / the next day","is / there / tomorrow"], answer: 0, tag: "Level 4 - Continuous + Place + Time", explain: "<b>am organizing</b> 變 <b>was organizing</b>；<b>here</b> 變 <b>there</b>；<b>tomorrow</b> 變 <b>the next day</b>。" },
+  { direct: '"Please tell them that I have been waiting for my order," the customer said.', text: "The customer asked me to tell ___ that ___ ___ waiting for ___ order.", options: ["them / she / had been / her","they / she / had been / her","them / she / has been / her","they / she / has been / her"], answer: 0, tag: "Level 4 - Perfect Continuous", explain: "轉述請求 (asked me to tell)；<b>them</b> 不變；<b>I</b> 變 <b>she</b>；<b>have been waiting</b> 變 <b>had been waiting</b>；<b>my</b> 變 <b>her</b>。" },
+  { direct: '"Did you finish this report yesterday?" the manager asked.', text: "The manager asked ___ I ___ finished ___ report the day before.", options: ["that / had / that","if / had / that","if / has / this","that / has / this"], answer: 1, tag: "Level 4 - Yes/No Question + Perfect", explain: "用 <b>if</b>；<b>Did finish</b> 變 <b>had finished</b>；<b>this</b> 變 <b>that</b>。" },
+  { direct: '"We must reduce pollution for our environment," they said.', text: "They said they ___ reduce pollution for ___ environment.", options: ["must / their","had to / their","had to / our","must / our"], answer: 1, tag: "Level 4 - Modal + Pronoun", explain: "<b>must</b> 變 <b>had to</b>；<b>our</b> 變 <b>their</b>。" },
   { direct: '"Do you support our campaign?" the activist asked us.', text: "The activist asked us ___ we ___ ___ campaign.", options: ["if / supported / their","if / support / their","that / supported / our","that / support / our"], answer: 0, tag: "Level 4 - Yes/No Question", explain: "用 <b>if</b>；現在式 <b>support</b> 變過去式 <b>supported</b>；<b>our</b> 變 <b>their</b>。" },
-  { direct: '"Don\'t throw rubbish here," the guard told us.', text: "The guard told us ___ throw rubbish ___ ___.", options: ["not to / there / then","to not / there / then","not to / here / now","to not / here / now"], answer: 0, tag: "Level 4 - Negative Order", explain: "<b>not to</b> throw；<b>here</b> 變 <b>there</b>；<b>now</b> 轉為轉述時的 <b>then</b> (或省略)。" },
-  { direct: '"I will donate my money here tomorrow," he said.', text: "He said he ___ donate ___ money ___ the next day.", options: ["would / his / there","will / his / there","would / my / here","will / my / here"], answer: 0, tag: "Level 4 - Modal + Pronoun + Place", explain: "<b>will</b> 變 <b>would</b>；<b>my</b> 變 <b>his</b>；<b>here</b> 變 <b>there</b> (後面的 the next day 已經轉換)。" },
+  { direct: '"Don\'t throw rubbish here," the guard told us.', text: "The guard told us ___ throw rubbish ___ ___.", options: ["to not / there / then","not to / there / then","not to / here / now","to not / here / now"], answer: 1, tag: "Level 4 - Negative Order", explain: "<b>not to</b> throw；<b>here</b> 變 <b>there</b>；<b>now</b> 轉為轉述時的 <b>then</b>。" },
+  { direct: '"I will donate my money here tomorrow," he said.', text: "He said he ___ donate ___ money ___ the next day.", options: ["would / his / there","will / his / there","would / my / here","will / my / here"], answer: 0, tag: "Level 4 - Modal + Pronoun + Place", explain: "<b>will</b> 變 <b>would</b>；<b>my</b> 變 <b>his</b>；<b>here</b> 變 <b>there</b>。" },
   { direct: '"How can we change this law?" the mothers asked.', text: "The mothers asked how they ___ change ___ law.", options: ["can / this","could / that","could / this","can / that"], answer: 1, tag: "Level 4 - Wh- Question + Modal", explain: "轉述問句用主語+動詞語序；<b>can</b> 變 <b>could</b>；<b>this</b> 變 <b>that</b>。" },
-  { direct: '"Have you finished your report?" the manager asked him.', text: "The manager asked him ___ he ___ finished ___ report.", options: ["if / had / his","if / has / his","that / had / her","that / has / her"], answer: 0, tag: "Level 4 - Yes/No Question + Tense", explain: "用 <b>if</b>；<b>have finished</b> 變 <b>had finished</b>；<b>your</b> (他的) 變 <b>his</b>。" },
+  { direct: '"Have you finished your report?" the manager asked him.', text: "The manager asked him ___ he ___ finished ___ report.", options: ["if / had / his","if / has / his","that / had / her","that / has / her"], answer: 0, tag: "Level 4 - Yes/No Question + Perfect", explain: "用 <b>if</b>；<b>have finished</b> 變 <b>had finished</b>；<b>your</b> (他的) 變 <b>his</b>。" },
   { direct: '"You should apply for this job," I told her.', text: "I advised her ___ apply for ___ job.", options: ["to / that","should / that","to / this","should / this"], answer: 0, tag: "Level 4 - Advice/Order + Demonstrative", explain: "轉述建議用 advise someone <b>to</b> do something；<b>this</b> 變 <b>that</b>。" }
 ];
 
@@ -332,10 +330,10 @@ const QUESTIONS = [
    彈性計時：按題目難度決定每題秒數
    ============================================================ */
 function getQuestionTimeLimit(index){
-  if (index < 10) return 20; // Level 1 (1 blank)
-  if (index < 20) return 25; // Level 2 (2 blanks)
-  if (index < 30) return 25; // Level 3 (Questions & 2 blanks)
-  return 30;                 // Level 4 (3 blanks)
+  if (index < 10) return 20; // Level 1
+  if (index < 20) return 25; // Level 2
+  if (index < 30) return 25; // Level 3
+  return 30;                 // Level 4
 }
 
 /* ============================================================
