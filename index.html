@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Social Issues 轉述句挑戰</title>
+<style>
+  :root{
+    --bg:#05070d;
+    --blue:#4da6ff;
+    --blue-2:#7fc4ff;
+    --blue-3:#b9dcff;
+    --dim:#2a5d94;
+    --border:#17314f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--blue);
+    font-family:"Segoe UI","PingFang HK","Microsoft JhengHei",system-ui,sans-serif;
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:16px;
+  }
+  .wrap{width:100%;max-width:780px;}
+  .card{
+    background:linear-gradient(180deg,#08111d,#05070d);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:26px 22px;
+    box-shadow:0 0 50px rgba(45,120,220,.13);
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- 開始畫面 ---------- */
+  #startScreen h1{font-size:1.9rem;letter-spacing:1px;color:var(--blue-2);margin-bottom:10px;text-align:center;}
+  #startScreen .sub{text-align:center;color:var(--dim);font-size:.95rem;margin-bottom:22px;letter-spacing:.5px;}
+  .rulebox{
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:16px 18px;
+    margin-bottom:22px;
+    background:#070d17;
+    font-size:.95rem;
+    line-height:1.85;
+    color:var(--blue-3);
+  }
+  .rulebox b{color:var(--blue-2);}
+  .bigbtn{
+    display:block;width:100%;
+    padding:15px;
+    background:#0b1a2e;
+    border:1px solid #2f8fff;
+    border-radius:12px;
+    color:#9fd3ff;
+    font-size:1.1rem;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:.18s;
+    font-family:inherit;
+  }
+  .bigbtn:hover{background:#12294a;color:#e0f1ff;box-shadow:0 0 22px rgba(60,150,255,.35);}
+
+  /* ---------- 遊戲畫面 ---------- */
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:.9rem;color:var(--dim);letter-spacing:.5px;}
+  .topbar .score{color:var(--blue-2);}
+
+  .timer-row{display:flex;align-items:center;gap:12px;margin-bottom:22px;}
+  .timer-track{flex:1;height:8px;background:#0d1b2c;border-radius:99px;overflow:hidden;border:1px solid #12253c;}
+  .timer-fill{height:100%;width:100%;background:linear-gradient(90deg,#1e5fa8,#4da6ff);border-radius:99px;}
+  .timer-text{font-size:.95rem;min-width:42px;text-align:right;color:var(--blue-2);font-variant-numeric:tabular-nums;}
+  .limit-tag{font-size:.78rem;color:#2a5d94;letter-spacing:.5px;white-space:nowrap;}
+
+  .quote{
+    border-left:3px solid #1f4d80;
+    background:#070e18;
+    padding:12px 16px;
+    border-radius:0 10px 10px 0;
+    margin-bottom:16px;
+    font-size:1rem;
+    color:#6fb3ef;
+    font-style:italic;
+    line-height:1.6;
+  }
+  .quote::before{content:"DIRECT SPEECH";display:block;font-style:normal;font-size:.7rem;letter-spacing:2px;color:#2a5d94;margin-bottom:6px;}
+
+  .qtext{
+    font-size:1.22rem;
+    line-height:1.75;
+    color:#a8d8ff;
+    margin-bottom:22px;
+    min-height:60px;
+  }
+
+  .options{display:flex;flex-direction:column;gap:11px;}
+  .option{
+    display:flex;align-items:center;gap:14px;
+    width:100%;padding:14px 16px;
+    background:#08121f;
+    border:1px solid var(--border);
+    border-radius:11px;
+    color:#7fc4ff;
+    font-size:1.05rem;
+    font-family:inherit;
+    cursor:pointer;
+    text-align:left;
+    transition:.15s;
+  }
+  .option:hover:not(.disabled){background:#0e1e33;border-color:#2f8fff;color:#d6ecff;}
+  .option .letter{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;flex:0 0 26px;
+    border-radius:50%;
+    border:1px solid #2a5d94;
+    font-size:.8rem;
+    color:#4da6ff;
+  }
+  .option.disabled{cursor:default;}
+  .option.correct{background:#062434;border-color:#38d9c0;color:#8ff0e2;}
+  .option.correct .letter{border-color:#38d9c0;color:#8ff0e2;}
+  .option.wrong{background:#1f0d14;border-color:#c9415e;color:#ff9aae;}
+  .option.wrong .letter{border-color:#c9415e;color:#ff9aae;}
+
+  /* ---------- 回饋 ---------- */
+  .feedback{
+    margin-top:20px;
+    border-radius:12px;
+    padding:16px 18px;
+    font-size:.98rem;
+    line-height:1.8;
+    animation:fadeIn .25s ease;
+  }
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .fb-correct{background:#04141d;border:1px solid #1f7a6a;color:#7fe0d2;}
+  .fb-wrong{background:#14090f;border:1px solid #7a2a3d;color:#ffb3c1;}
+  .fb-title{font-size:1.05rem;font-weight:700;margin-bottom:8px;letter-spacing:.5px;}
+  .fb-body b{color:#b9dcff;}
+  .fb-correct .fb-body b{color:#a8ffe9;}
+  .fb-wrong .fb-body b{color:#ffd0da;}
+  .tagline{display:inline-block;margin:6px 0;padding:2px 10px;border-radius:99px;background:#0d2136;color:#6fb3ef;font-size:.82rem;letter-spacing:.5px;}
+  .ansrow{margin-bottom:8px;}
+
+  #nextBtn{
+    margin-top:18px;width:100%;padding:14px;
+    background:#0b1a2e;border:1px solid #2f8fff;border-radius:11px;
+    color:#9fd3ff;font-size:1.05rem;font-family:inherit;
+    cursor:pointer;letter-spacing:1px;transition:.18s;
+  }
+  #nextBtn:hover{background:#12294a;color:#e0f1ff;box-shadow:0 0 20px rgba(60,150,255,.3);}
+
+  /* ---------- 結束畫面 ---------- */
+  #endScreen{text-align:center;}
+  #endScreen h2{font-size:1.5rem;color:var(--blue-2);margin-bottom:18px;letter-spacing:1px;}
+  .finalscore{font-size:3rem;color:#9fd3ff;letter-spacing:2px;margin-bottom:6px;}
+  .finalpct{font-size:1.2rem;color:var(--dim);margin-bottom:20px;}
+  #finalMsg{font-size:.98rem;line-height:1.9;color:#8fc7f5;margin-bottom:24px;}
+
+  /* Summary Notes 錯題溫習區 */
+  .summary-notes{
+    text-align:left;
+    background:#070d17;
+    border:1px solid #17314f;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:24px;
+    max-height:400px;
+    overflow-y:auto;
+  }
+  .summary-notes h3{color:#7fc4ff;font-size:1.15rem;margin-bottom:14px;border-bottom:1px solid #17314f;padding-bottom:8px;letter-spacing:1px;}
+  .note-item{
+    background:#0a1524;
+    border-left:3px solid #c9415e;
+    padding:12px 16px;
+    border-radius:0 8px 8px 0;
+    margin-bottom:12px;
+    font-size:.92rem;
+    line-height:1.7;
+    color:#b9dcff;
+  }
+  .note-item .ntag{display:block;color:#ff9aae;font-size:.8rem;margin-bottom:6px;letter-spacing:0.5px;}
+  .note-item b{color:#fff;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= 開始畫面 ================= -->
+  <section id="startScreen" class="card">
+    <h1>🌍 Social Issues 轉述句挑戰</h1>
+    <p class="sub">Reported Speech × Pronouns × Questions × Commands</p>
+    <div class="rulebox">
+      根據你提供嘅 PDF 範圍 (排除 tenses 不變、條件句及感嘆句)，專注訓練：<br>
+      • 人稱代詞、物主形容詞、物主代詞<br>
+      • 指示代詞 (this/these ➔ that/those)<br>
+      • 時間及地點轉換 (here ➔ there, tomorrow ➔ the next day)<br>
+      • 轉述問句 (Wh- 及 Yes/No，注意語序)<br>
+      • 轉述祈使句及建議 (to-infinitive / not to-infinitive)<br><br>
+      ⏱ 彈性計時：15 秒 ➔ 25 秒｜共 <b>40 題</b>｜答錯有中文詳解及最後總結
+    </div>
+    <button class="bigbtn" onclick="startGame()">開始挑戰 ▶</button>
+  </section>
+
+  <!-- ================= 遊戲畫面 ================= -->
+  <section id="gameScreen" class="card hidden">
+    <div class="topbar">
+      <span id="progress">第 1 / 40 題</span>
+      <span class="score" id="score">得分：0</span>
+    </div>
+
+    <div class="timer-row">
+      <div class="timer-track"><div class="timer-fill" id="timerBar"></div></div>
+      <div class="timer-text" id="timerText">20s</div>
+      <div class="limit-tag" id="limitTag">限時 20 秒</div>
+    </div>
+
+    <div id="quote" class="quote hidden"></div>
+    <div id="questionText" class="qtext"></div>
+
+    <div id="options" class="options"></div>
+
+    <div id="feedback" class="feedback hidden"></div>
+
+    <button id="nextBtn" class="hidden" onclick="nextQuestion()">下一題 →</button>
+  </section>
+
+  <!-- ================= 結束畫面 ================= -->
+  <section id="endScreen" class="card hidden">
+    <h2>挑戰完成！</h2>
+    <div class="finalscore" id="finalScore">0 / 40</div>
+    <div class="finalpct" id="finalPct">0%</div>
+    
+    <div id="finalMsg"></div>
+
+    <!-- 錯題總結區 -->
+    <div id="summaryNotes" class="summary-notes hidden">
+      <h3>📝 錯題重點溫習 (Summary Notes)</h3>
+      <div id="notesList"></div>
+    </div>
+
+    <button class="bigbtn" onclick="startGame()">再玩一次 ↻</button>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+   題庫：40 題 (Social Issues 主題)
+   答案位置已完全手動打散，無規律可捉。
+   ============================================================ */
+const QUESTIONS = [
+
+  /* ---------- 第 1–10 題：短句（15 秒） ---------- */
+  { direct: '"I want to help the poor," said Mary.', text: "Mary said that ___ wanted to help the poor.", options: ["she","her","hers","herself"], answer: 0, tag: "代詞 Pronoun", explain: "直接引語中的 <b>I</b> 是指 Mary，轉述時要變成第三人稱的 <b>she</b>，作為從句的主語。" },
+  { direct: '"The government should improve our healthcare," said Tom.', text: "Tom said the government should improve ___ healthcare.", options: ["us","our","their","theirs"], answer: 2, tag: "物主形容詞 Possessive Adjective", explain: "直接引語中的 <b>our</b> 指 Tom 和社區的醫療，轉述時要變成 <b>their</b>。因為後面有名詞 healthcare，所以用物主形容詞。" },
+  { direct: '"This problem is serious," said the mayor.', text: "The mayor said ___ problem was serious.", options: ["this","that","these","those"], answer: 1, tag: "指示代詞 Demonstrative", explain: "轉述時，<b>this</b> (這個) 通常會變成 <b>that</b> (那個)，因為說話的時間和地點改變了。" },
+  { direct: '"We will protest here tomorrow," they said.', text: "They said they would protest there ___.", options: ["tomorrow","the next day","yesterday","that day"], answer: 1, tag: "時間轉換 Time", explain: "直接引語的 <b>tomorrow</b> (明天)，轉述時通常變成 <b>the next day</b> 或 the following day。" },
+  { direct: '"I saw the pollution here yesterday," said John.', text: "John said he had seen the pollution ___ the day before.", options: ["here","there","this","that"], answer: 1, tag: "地點轉換 Place", explain: "直接引語的 <b>here</b> (這裡)，轉述時因為地點可能改變了，通常會變成 <b>there</b> (那裡)。" },
+  { direct: '"Please support us in the election," said the politician.', text: "The politician asked people to support ___ in the election.", options: ["we","us","them","theirs"], answer: 2, tag: "代詞 Pronoun", explain: "直接引語的 <b>us</b> 指政黨，轉述時要變成 <b>them</b>。動詞 support 後面要接受詞 (Object Pronoun)。" },
+  { direct: '"The land is ours," said the villagers.', text: "The villagers said the land was ___.", options: ["their","them","theirs","they"], answer: 2, tag: "物主代詞 Possessive Pronoun", explain: "直接引語的 <b>ours</b> (我們的)，轉述時要變成 <b>theirs</b> (他們的)。空格後面沒有名詞，所以用物主代詞。" },
+  { direct: '"Where are the homeless people?" asked the reporter.', text: "The reporter asked where the homeless people ___.", options: ["are","were","was","is"], answer: 1, tag: "轉述問句 Question", explain: "轉述問句時，動詞時態要倒退 (are ➔ were)，而且語序要是「主語 + 動詞」，所以是 <b>were</b>。" },
+  { direct: '"Do you need food?" the volunteer asked me.', text: "The volunteer asked me ___ I needed food.", options: ["if","that","what","which"], answer: 0, tag: "Yes/No 問句", explain: "轉述 Yes/No 問句時，要用 <b>if</b> 或 whether 連接入面的從句。" },
+  { direct: '"Don\'t waste water," said the teacher.', text: "The teacher told us ___ waste water.", options: ["don't","not to","to not","no to"], answer: 1, tag: "否定祈使句 Negative Command", explain: "轉述否定的命令或請求時，我們用 <b>not to + 動詞原形</b> (not to waste)。" },
+
+  /* ---------- 第 11–20 題：中短句（18 秒） ---------- */
+  { direct: '"We must reduce plastic waste for our environment," said the students.', text: "The students said they must reduce plastic waste for ___ environment.", options: ["our","their","them","theirs"], answer: 1, tag: "物主形容詞 Possessive Adjective", explain: "直接引語的 <b>our</b> (我們的)，轉述時要變成 <b>their</b>。後面有名詞 environment，用物主形容詞。" },
+  { direct: '"I visited the shelter last week," said Peter.', text: "Peter said he had visited the shelter ___.", options: ["last week","the week before","next week","the following week"], answer: 1, tag: "時間轉換 Time", explain: "直接引語的 <b>last week</b> (上週)，轉述時要變成 <b>the week before</b> 或 the previous week。" },
+  { direct: '"My family cannot afford the rent," said the worker.', text: "The worker said ___ family could not afford the rent.", options: ["her","hers","she","herself"], answer: 0, tag: "物主形容詞 Possessive Adjective", explain: "直接引語的 <b>My</b> 指那個女工人 (her)，所以轉述時要變成 <b>her</b>。後面有名詞 family。" },
+  { direct: '"How can we solve poverty?" the student asked.', text: "The student asked how they ___ solve poverty.", options: ["can","could","would","should"], answer: 1, tag: "轉述問句 Question", explain: "轉述問句時，情態動詞 <b>can</b> 通常會變成過去式的 <b>could</b>。" },
+  { direct: '"Is the air quality improving?" asked the doctor.', text: "The doctor asked ___ the air quality was improving.", options: ["that","what","if","which"], answer: 2, tag: "Yes/No 問句", explain: "轉述 Yes/No 問句時，需要用 <b>if</b> 或 whether。這句原本是「空氣質素有改善嗎？」" },
+  { direct: '"You should apply for the housing subsidy," the social worker told him.', text: "The social worker advised him ___ for the housing subsidy.", options: ["apply","to apply","applying","applied"], answer: 1, tag: "轉述建議 Advice", explain: "轉述建議 (advise someone to do something) 時，用 <b>to-infinitive</b> (to apply)。" },
+  { direct: '"The charity sent me a donation," said the old man.', text: "The old man said the charity had sent ___ a donation.", options: ["me","him","he","his"], answer: 1, tag: "代詞 Pronoun", explain: "直接引語的 <b>me</b> 是指那個老人，轉述時要變成 <b>him</b>，作為 sent 的受詞。" },
+  { direct: '"We will build a new community center here," said the mayor.', text: "The mayor said they would build a new community center ___.", options: ["here","there","where","everywhere"], answer: 1, tag: "地點轉換 Place", explain: "直接引語的 <b>here</b> (這裡)，轉述時要變成 <b>there</b> (那裡)。" },
+  { direct: '"These policies are unfair to the poor," said the activist.', text: "The activist said ___ policies were unfair to the poor.", options: ["this","that","these","those"], answer: 3, tag: "指示代詞 Demonstrative", explain: "轉述時，複數的 <b>these</b> (這些) 通常會變成 <b>those</b> (那些)。" },
+  { direct: '"This shelter is mine to manage," said the director.', text: "The director said the shelter was ___ to manage.", options: ["her","hers","she","her's"], answer: 1, tag: "物主代詞 Possessive Pronoun", explain: "直接引語的 <b>mine</b> (我的)，轉述時要變成 <b>hers</b> (她的)。空格後沒有名詞，所以用物主代詞。" },
+
+  /* ---------- 第 21–30 題：中長句（20 秒） ---------- */
+  { direct: '"What is the cause of homelessness?" the journalist asked the expert.', text: "The journalist asked the expert what the cause of homelessness ___.", options: ["is","was","were","had been"], answer: 1, tag: "轉述問句 Question", explain: "轉述問句時，動詞 is 要變成 <b>was</b>，並且保持「主語 + 動詞」的正常語序。" },
+  { direct: '"Please give me some food," the hungry child said to me.', text: "The hungry child begged me ___ him some food.", options: ["give","to give","giving","gave"], answer: 1, tag: "轉述請求 Request", explain: "轉述請求 (beg someone to do something) 時，用 <b>to-infinitive</b> (to give)。" },
+  { direct: '"I will start my new job tomorrow," said the graduate.', text: "The graduate said he would start his new job ___.", options: ["tomorrow","the next day","the day before","yesterday"], answer: 1, tag: "時間轉換 Time", explain: "直接引語的 <b>tomorrow</b>，轉述時要變成 <b>the next day</b> 或 the following day。" },
+  { direct: '"Have you seen the pollution report?" she asked me.', text: "She asked me ___ I had seen the pollution report.", options: ["if","that","what","which"], answer: 0, tag: "Yes/No 問句", explain: "這是一個 Yes/No 問句 (你看了嗎？)，所以轉述時要用 <b>if</b> 或 whether 連接。" },
+  { direct: '"We need to protect our rights," the workers said.', text: "The workers said ___ needed to protect ___ rights.", options: ["they / their","we / our","they / our","we / their"], answer: 0, tag: "代詞及物主詞", explain: "<b>We</b> 變成 <b>they</b> (主語)，<b>our</b> 變成 <b>their</b> (物主形容詞)。" },
+  { direct: '"Do not ignore the climate crisis," the scientist told the leaders.', text: "The scientist warned the leaders ___ ignore the climate crisis.", options: ["don't","to not","not to","no to"], answer: 2, tag: "否定祈使句 Negative Command", explain: "轉述否定的警告時，使用 <b>not to + 動詞原形</b> (not to ignore)。" },
+  { direct: '"Where did they put the recycling bins?" asked the resident.', text: "The resident asked where they ___ the recycling bins.", options: ["did put","had put","have put","put"], answer: 1, tag: "轉述問句 Question", explain: "轉述問句時，過去式 (did put) 要變成過去完成式 <b>had put</b>，且語序為主語加動詞。" },
+  { direct: '"I will donate money to the charity," said the businessman.', text: "The businessman promised ___ money to the charity.", options: ["donate","to donate","donating","donated"], answer: 1, tag: "轉述承諾 Promise", explain: "promise 後面接 <b>to-infinitive</b> (to donate) 來表示承諾做某事。" },
+  { direct: '"I will meet you here tomorrow," said the volunteer.', text: "The volunteer said he would meet me ___ ___.", options: ["there / the next day","here / tomorrow","there / tomorrow","here / the next day"], answer: 0, tag: "時間及地點轉換", explain: "<b>here</b> 變成 <b>there</b>，<b>tomorrow</b> 變成 <b>the next day</b>。" },
+  { direct: '"This house is theirs, not ours," said the neighbor.', text: "The neighbor said that house was ___.", options: ["their","theirs","them","they"], answer: 1, tag: "物主代詞 Possessive Pronoun", explain: "原本的 <b>theirs</b> 保持不變。空格後沒有名詞，所以要用物主代詞 <b>theirs</b> 代表他們的房子。" },
+
+  /* ---------- 第 31–40 題：複雜句（25 秒） ---------- */
+  { direct: '"Poverty is a big problem. We must act now," said the mayor.', text: "The mayor said poverty was a big problem and urged us ___ now.", options: ["act","to act","acting","acted"], answer: 1, tag: "轉述建議 Urge", explain: "混合句。urge 後接 <b>to-infinitive</b> (to act)，表示催促某人做某事。" },
+  { direct: '"What should I do to help the community?" she asked.', text: "She asked what ___ to help the community.", options: ["should she do","to do","she should do","doing"], answer: 1, tag: "轉述問句 Question", explain: "當轉述包含 should 的問句時，可以用「wh- word + <b>to-infinitive</b>」結構，即 what to do。" },
+  { direct: '"Could you help me apply for this job?" he asked.', text: "He asked me ___ him apply for that job.", options: ["help","to help","helping","helped"], answer: 1, tag: "轉述請求 Request", explain: "轉述請求 (ask someone to do something) 時，使用 <b>to-infinitive</b> (to help)。" },
+  { direct: '"I bought these clothes here yesterday," she said.', text: "She said she had bought those clothes ___ ___.", options: ["here / yesterday","there / the day before","there / yesterday","here / the day before"], answer: 1, tag: "時間及地點轉換", explain: "<b>here</b> 變 <b>there</b>；<b>yesterday</b> 變 <b>the day before</b> 或 the previous day。" },
+  { direct: '"My parents told me to fight for our rights," said the student.', text: "The student said ___ parents had told ___ to fight for their rights.", options: ["her / her","she / her","her / herself","hers / her"], answer: 0, tag: "代詞及物主詞", explain: "<b>My</b> 變成 <b>her</b> (物主形容詞)；<b>me</b> 變成 <b>her</b> (賓格代詞)。" },
+  { direct: '"Why don\'t we start a community garden?" the neighbor said.', text: "The neighbor suggested ___ a community garden.", options: ["start","to start","starting","started"], answer: 2, tag: "轉述建議 Suggestion", explain: "「Why don't we...」表示建議。轉述時可用 suggest + <b>V-ing</b> (starting) 或 that-clause。" },
+  { direct: '"Don\'t throw rubbish here! It pollutes the river," said the guard.', text: "The guard told us ___ throw rubbish there because it polluted the river.", options: ["don't","to not","not to","no to"], answer: 2, tag: "否定祈使句 Negative Command", explain: "混合句。前半句是命令，轉述時用 <b>not to + 動詞原形</b> (not to throw)。" },
+  { direct: '"How many people live in this shelter?" the reporter asked.', text: "The reporter asked how many people ___ in that shelter.", options: ["did live","lived","do live","live"], answer: 1, tag: "轉述問句 Question", explain: "轉述問句時，不用助動詞 did，動詞直接用過去式 <b>lived</b>，且語序為主語 + 動詞。" },
+  { direct: '"You ought to see a doctor about your stress," I said to him.', text: "I advised him ___ a doctor about his stress.", options: ["see","to see","seeing","saw"], answer: 1, tag: "轉述建議 Advice", explain: "ought to 表示建議，轉述時可用 advise someone <b>to do</b> something (to see)。" },
+  { direct: '"I am organizing a protest tomorrow," she said.', text: "She said she was organizing a protest ___.", options: ["tomorrow","the next day","the day before","next day"], answer: 1, tag: "時間轉換 Time", explain: "直接引語的 <b>tomorrow</b>，轉述時通常變成 <b>the next day</b>。" }
+];
+
+/* ============================================================
+   彈性計時：按題目難度決定每題秒數
+   ============================================================ */
+function getQuestionTimeLimit(index){
+  if (index < 10) return 15;
+  if (index < 20) return 18;
+  if (index < 30) return 20;
+  return 25;
+}
+
+/* ============================================================
+   遊戲邏輯
+   ============================================================ */
+const LETTERS = ["A","B","C","D"];
+
+let current = 0;
+let score = 0;
+let timerId = null;
+let timeLeft = 0;
+let currentTimeLimit = 20;
+let answered = false;
+let wrongQuestionsList = []; 
+
+function startGame(){
+  current = 0;
+  score = 0;
+  wrongQuestionsList = [];
+  document.getElementById("startScreen").classList.add("hidden");
+  document.getElementById("endScreen").classList.add("hidden");
+  document.getElementById("gameScreen").classList.remove("hidden");
+  showQuestion();
+}
+
+function showQuestion(){
+  answered = false;
+  const q = QUESTIONS[current];
+  currentTimeLimit = getQuestionTimeLimit(current);
+
+  /* UI 渲染 */
+  document.getElementById("progress").textContent = `第 ${current+1} / ${QUESTIONS.length} 題`;
+  document.getElementById("score").textContent = `得分：${score}`;
+  document.getElementById("limitTag").textContent = `限時 ${currentTimeLimit} 秒`;
+
+  const quoteEl = document.getElementById("quote");
+  if (q.direct){
+    quoteEl.innerHTML = q.direct;
+    quoteEl.classList.remove("hidden");
+  } else {
+    quoteEl.classList.add("hidden");
+  }
+
+  document.getElementById("questionText").textContent = q.text;
+
+  const box = document.getElementById("options");
+  box.innerHTML = "";
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.innerHTML = `<span class="letter">${LETTERS[i]}</span><span>${opt}</span>`;
+    btn.onclick = () => choose(i);
+    box.appendChild(btn);
+  });
+
+  const fb = document.getElementById("feedback");
+  fb.classList.add("hidden");
+  fb.className = "feedback hidden";
+  document.getElementById("nextBtn").classList.add("hidden");
+
+  startTimer();
+}
+
+/* ---------- 計時器 ---------- */
+function startTimer(){
+  clearInterval(timerId);
+  timeLeft = currentTimeLimit;
+  renderTimer();
+  timerId = setInterval(() => {
+    timeLeft -= 0.1;
+    if (timeLeft <= 0){
+      timeLeft = 0;
+      renderTimer();
+      clearInterval(timerId);
+      if (!answered) choose(-1); 
+    } else {
+      renderTimer();
+    }
+  }, 100);
+}
+
+function renderTimer(){
+  const pct = (timeLeft / currentTimeLimit) * 100;
+  const bar = document.getElementById("timerBar");
+  bar.style.width = pct + "%";
+  bar.style.background = timeLeft <= 6
+    ? "linear-gradient(90deg,#1a3a6b,#2f8fff)"
+    : "linear-gradient(90deg,#1e5fa8,#4da6ff)";
+  document.getElementById("timerText").textContent = Math.ceil(timeLeft) + "s";
+}
+
+/* ---------- 作答 ---------- */
+function choose(idx){
+  if (answered) return;
+  answered = true;
+  clearInterval(timerId);
+
+  const q = QUESTIONS[current];
+  const buttons = document.querySelectorAll("#options .option");
+
+  buttons.forEach((btn, i) => {
+    btn.disabled = true;
+    btn.classList.add("disabled");
+    if (i === q.answer) btn.classList.add("correct");
+    if (i === idx && i !== q.answer) btn.classList.add("wrong");
+  });
+
+  const fb = document.getElementById("feedback");
+  fb.classList.remove("hidden");
+
+  if (idx === q.answer){
+    score++;
+    fb.className = "feedback fb-correct";
+    fb.innerHTML = `
+      <div class="fb-title">✓ 正確！</div>
+      <div class="fb-body">
+        <span class="tagline">${q.tag}</span><br>
+        ${q.explain}
+      </div>`;
+  } else {
+    const chosenText = idx >= 0 ? q.options[idx] : "（超時，沒有作答）";
+    wrongQuestionsList.push({
+      question: q.text,
+      direct: q.direct,
+      chosen: chosenText,
+      correct: q.options[q.answer],
+      tag: q.tag,
+      explain: q.explain
+    });
+
+    fb.className = "feedback fb-wrong";
+    fb.innerHTML = `
+      <div class="fb-title">✗ 答錯咗</div>
+      <div class="fb-body">
+        <div class="ansrow">你揀咗：<b>${chosenText}</b>　→　正確答案：<b>${q.options[q.answer]}</b></div>
+        <span class="tagline">${q.tag}</span><br>
+        ${q.explain}
+      </div>`;
+  }
+
+  document.getElementById("score").textContent = `得分：${score}`;
+
+  const nextBtn = document.getElementById("nextBtn");
+  nextBtn.classList.remove("hidden");
+  nextBtn.textContent = current === QUESTIONS.length - 1 ? "看結果 →" : "下一題 →";
+  nextBtn.focus();
+}
+
+/* ---------- 下一題 ---------- */
+function nextQuestion(){
+  current++;
+  if (current >= QUESTIONS.length){
+    showEnd();
+  } else {
+    showQuestion();
+  }
+}
+
+/* ---------- 結束與錯題總結 ---------- */
+function showEnd(){
+  clearInterval(timerId);
+  document.getElementById("gameScreen").classList.add("hidden");
+  document.getElementById("endScreen").classList.remove("hidden");
+
+  const pct = Math.round((score / QUESTIONS.length) * 100);
+  document.getElementById("finalScore").textContent = `${score} / ${QUESTIONS.length}`;
+  document.getElementById("finalPct").textContent = `${pct}%`;
+
+  let msg = "";
+  if (pct >= 90) msg = "太厲害了！你已經完全掌握轉述句的代詞、時間地點及句型轉換！🎉";
+  else if (pct >= 75) msg = "很好！再溫習下面嘅錯題重點，你就會更加穩。💪";
+  else if (pct >= 50) msg = "不錯，但仍要小心！記得轉述時要注意「代詞改變」、「時間地點轉移」同埋「問句語序」。";
+  else msg = "再努力一次！<br>口訣：<b>一變代詞，二變時態，三變時間地點，四注意問句語序及 to-infinitive。</b>";
+
+  document.getElementById("finalMsg").innerHTML = msg;
+
+  const summaryBox = document.getElementById("summaryNotes");
+  const notesList = document.getElementById("notesList");
+
+  if (wrongQuestionsList.length === 0) {
+    summaryBox.classList.add("hidden");
+  } else {
+    summaryBox.classList.remove("hidden");
+    let notesHTML = "";
+    
+    wrongQuestionsList.forEach((item, index) => {
+      notesHTML += `
+        <div class="note-item">
+          <span class="ntag">重點：${item.tag}</span>
+          ${item.direct ? `<div style="margin-bottom:6px; color:#6fb3ef;">原句：${item.direct}</div>` : ''}
+          <div style="margin-bottom:6px;">題目：${item.question.replace('___', '_______')}</div>
+          <div style="margin-bottom:6px; color:#ff9aae;">你答咗：${item.chosen} (正確答案：<b>${item.correct}</b>)</div>
+          <div style="color:#7fc4ff; font-size:0.85rem;">${item.explain}</div>
+        </div>
+      `;
+    });
+    notesList.innerHTML = notesHTML;
+  }
+}
+
+/* ---------- 鍵盤快捷鍵 ---------- */
+document.addEventListener("keydown", (e) => {
+  if (document.getElementById("gameScreen").classList.contains("hidden")) return;
+
+  const key = e.key.toUpperCase();
+  const nextBtn = document.getElementById("nextBtn");
+
+  if (key === "ENTER" && !nextBtn.classList.contains("hidden")){
+    e.preventDefault();
+    nextQuestion();
+    return;
+  }
+  if (answered) return;
+
+  let idx = -1;
+  if ("ABCD".includes(key)) idx = "ABCD".indexOf(key);
+  if ("1234".includes(key)) idx = "1234".indexOf(key);
+
+  if (idx >= 0 && idx < 4){
+    e.preventDefault();
+    choose(idx);
+  }
+});
+</script>
+</body>
+</html>
