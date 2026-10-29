@@ -3,23 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Social Issues 轉述句挑戰 (進階版)</title>
+<title>Social Issues 轉述句挑戰 (Tenses & Questions)</title>
 <style>
   :root{
     --bg: #ffffff;
     --text-main: #000000;
     --text-sub: #333333;
     --text-muted: #666666;
-    --border: #cccccc;
-    --bg-light: #f9f9f9;
-    --btn-bg: #ffffff;
-    --btn-hover: #f0f0f0;
-    --correct-bg: #e6f4ea;
-    --correct-border: #34a853;
-    --correct-text: #137333;
-    --wrong-bg: #fce8e6;
-    --wrong-border: #ea4335;
-    --wrong-text: #c5221f;
+    --border: #000000;
+    --border-light: #cccccc;
+    --bg-light: #f5f5f5;
+    --correct-bg: #000000;
+    --correct-text: #ffffff;
+    --wrong-bg: #e0e0e0;
+    --wrong-text: #000000;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{
@@ -33,105 +30,113 @@
   .wrap{width:100%;max-width:800px;}
   .card{
     background:#ffffff;
-    border:1px solid var(--border);
-    border-radius:12px;
+    border:2px solid var(--border);
+    border-radius:8px;
     padding:30px 26px;
-    box-shadow:0 4px 20px rgba(0,0,0,0.05);
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
   }
   .hidden{display:none !important;}
 
   /* ---------- 開始畫面 ---------- */
-  #startScreen h1{font-size:1.8rem;letter-spacing:1px;color:var(--text-main);margin-bottom:12px;text-align:center;font-weight:700;}
-  #startScreen .sub{text-align:center;color:var(--text-muted);font-size:.95rem;margin-bottom:24px;letter-spacing:.5px;}
+  #startScreen h1{font-size:1.8rem;letter-spacing:1px;color:var(--text-main);margin-bottom:12px;text-align:center;font-weight:800;}
+  #startScreen .sub{text-align:center;color:var(--text-muted);font-size:.95rem;margin-bottom:24px;letter-spacing:.5px;font-weight:600;}
   .rulebox{
-    border:1px solid var(--border);
+    border:2px solid var(--border);
     border-radius:8px;
     padding:18px 20px;
     margin-bottom:24px;
     background:var(--bg-light);
     font-size:.95rem;
     line-height:1.8;
-    color:var(--text-sub);
+    color:var(--text-main);
   }
-  .rulebox b{color:var(--text-main);}
+  .rulebox b{color:var(--text-main);font-weight:800;}
   .bigbtn{
     display:block;width:100%;
     padding:16px;
-    background:var(--text-main);
-    border:1px solid var(--text-main);
+    background:#ffffff;
+    border:2px solid var(--border);
     border-radius:8px;
-    color:#ffffff;
+    color:var(--text-main);
     font-size:1.1rem;
     letter-spacing:1px;
     cursor:pointer;
     transition:.18s;
     font-family:inherit;
-    font-weight:600;
+    font-weight:700;
   }
-  .bigbtn:hover{background:var(--text-sub);}
+  .bigbtn:hover{background:var(--text-main);color:#ffffff;}
 
   /* ---------- 遊戲畫面 ---------- */
-  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:.9rem;color:var(--text-muted);letter-spacing:.5px;}
-  .topbar .score{color:var(--text-main);font-weight:600;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:.95rem;color:var(--text-sub);letter-spacing:.5px;font-weight:600;}
+  .topbar .score{color:var(--text-main);font-weight:800;}
 
   .timer-row{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
-  .timer-track{flex:1;height:8px;background:#e0e0e0;border-radius:99px;overflow:hidden;}
-  .timer-fill{height:100%;width:100%;background:var(--text-main);border-radius:99px;}
-  .timer-text{font-size:.95rem;min-width:42px;text-align:right;color:var(--text-main);font-variant-numeric:tabular-nums;font-weight:600;}
-  .limit-tag{font-size:.8rem;color:var(--text-muted);white-space:nowrap;}
+  .timer-track{flex:1;height:10px;background:#ffffff;border:2px solid var(--border);border-radius:99px;overflow:hidden;}
+  .timer-fill{height:100%;width:100%;background:var(--text-main);border-radius:99px;transition:width 0.1s linear;}
+  .timer-text{font-size:1rem;min-width:45px;text-align:right;color:var(--text-main);font-variant-numeric:tabular-nums;font-weight:800;}
+  .limit-tag{font-size:.85rem;color:var(--text-sub);white-space:nowrap;font-weight:600;}
 
   .quote{
-    border-left:4px solid var(--text-main);
+    border-left:5px solid var(--border);
     background:var(--bg-light);
     padding:14px 18px;
-    border-radius:0 8px 8px 0;
+    border-radius:0 6px 6px 0;
     margin-bottom:18px;
     font-size:1rem;
-    color:var(--text-sub);
+    color:var(--text-main);
     font-style:italic;
     line-height:1.6;
+    font-weight:500;
   }
-  .quote::before{content:"DIRECT SPEECH";display:block;font-style:normal;font-size:.7rem;letter-spacing:2px;color:var(--text-muted);margin-bottom:6px;font-weight:700;}
+  .quote::before{content:"DIRECT SPEECH";display:block;font-style:normal;font-size:.75rem;letter-spacing:2px;color:var(--text-muted);margin-bottom:6px;font-weight:800;}
 
   .qtext{
-    font-size:1.2rem;
+    font-size:1.25rem;
     line-height:1.8;
     color:var(--text-main);
     margin-bottom:24px;
     min-height:60px;
-    font-weight:500;
+    font-weight:600;
   }
 
   .options{display:flex;flex-direction:column;gap:12px;}
   .option{
     display:flex;align-items:center;gap:14px;
     width:100%;padding:14px 16px;
-    background:var(--btn-bg);
-    border:1px solid var(--border);
+    background:#ffffff;
+    border:2px solid var(--border-light);
     border-radius:8px;
-    color:var(--text-sub);
+    color:var(--text-main);
     font-size:1.05rem;
     font-family:inherit;
+    font-weight:600;
     cursor:pointer;
     text-align:left;
     transition:.15s;
   }
-  .option:hover:not(.disabled){background:var(--btn-hover);border-color:#999;color:var(--text-main);}
+  .option:hover:not(.disabled){background:var(--text-main);color:#ffffff;border-color:var(--text-main);}
+  .option:hover:not(.disabled) .letter{background:#ffffff;color:var(--text-main);border-color:#ffffff;}
+  
   .option .letter{
     display:inline-flex;align-items:center;justify-content:center;
     width:28px;height:28px;flex:0 0 28px;
     border-radius:50%;
     background:var(--bg-light);
-    border:1px solid var(--border);
+    border:2px solid var(--border-light);
     font-size:.85rem;
-    color:var(--text-sub);
-    font-weight:700;
+    color:var(--text-main);
+    font-weight:800;
   }
   .option.disabled{cursor:default;}
-  .option.correct{background:var(--correct-bg);border-color:var(--correct-border);color:var(--correct-text);}
-  .option.correct .letter{background:#fff;border-color:var(--correct-border);color:var(--correct-text);}
-  .option.wrong{background:var(--wrong-bg);border-color:var(--wrong-border);color:var(--wrong-text);}
-  .option.wrong .letter{background:#fff;border-color:var(--wrong-border);color:var(--wrong-text);}
+  
+  /* 答對：黑底白字 */
+  .option.correct{background:var(--correct-bg);border-color:var(--border);color:var(--correct-text);}
+  .option.correct .letter{background:#ffffff;border-color:#ffffff;color:#000000;}
+  
+  /* 答錯：深灰底黑字粗邊框 */
+  .option.wrong{background:var(--wrong-bg);border-color:var(--border);border-width:3px;color:var(--wrong-text);}
+  .option.wrong .letter{background:#ffffff;border-color:#000000;color:#000000;}
 
   /* ---------- 回饋 ---------- */
   .feedback{
@@ -143,59 +148,66 @@
     animation:fadeIn .25s ease;
   }
   @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
-  .fb-correct{background:var(--correct-bg);border:1px solid var(--correct-border);color:var(--correct-text);}
-  .fb-wrong{background:var(--wrong-bg);border:1px solid var(--wrong-border);color:var(--wrong-text);}
-  .fb-title{font-size:1.05rem;font-weight:700;margin-bottom:8px;letter-spacing:.5px;}
-  .fb-body b{color:inherit;}
-  .tagline{display:inline-block;margin:8px 0;padding:3px 10px;border-radius:4px;background:rgba(0,0,0,0.06);color:var(--text-sub);font-size:.82rem;letter-spacing:.5px;font-weight:600;}
-  .ansrow{margin-bottom:10px;font-weight:600;}
+  
+  /* 答對題解：黑底白字 */
+  .fb-correct{background:var(--correct-bg);border:2px solid var(--border);color:var(--correct-text);}
+  .fb-correct .tagline{background:#ffffff;color:#000000;}
+  
+  /* 答錯題解：白底粗黑框 */
+  .fb-wrong{background:#ffffff;border:3px solid var(--border);color:var(--text-main);}
+  .fb-wrong .tagline{background:var(--text-main);color:#ffffff;}
+  
+  .fb-title{font-size:1.1rem;font-weight:800;margin-bottom:10px;letter-spacing:.5px;}
+  .fb-body b{color:inherit;font-weight:800;}
+  .tagline{display:inline-block;margin:8px 0;padding:4px 12px;border-radius:4px;font-size:.85rem;letter-spacing:.5px;font-weight:800;}
+  .ansrow{margin-bottom:12px;font-weight:700;}
 
   #nextBtn{
     margin-top:20px;width:100%;padding:16px;
-    background:var(--text-main);border:1px solid var(--text-main);border-radius:8px;
-    color:#ffffff;font-size:1.05rem;font-family:inherit;font-weight:600;
+    background:#ffffff;border:2px solid var(--border);border-radius:8px;
+    color:var(--text-main);font-size:1.05rem;font-family:inherit;font-weight:800;
     cursor:pointer;letter-spacing:1px;transition:.18s;
   }
-  #nextBtn:hover{background:var(--text-sub);}
+  #nextBtn:hover{background:var(--text-main);color:#ffffff;}
 
   /* ---------- 結束畫面 ---------- */
   #endScreen{text-align:center;}
-  #endScreen h2{font-size:1.6rem;color:var(--text-main);margin-bottom:20px;letter-spacing:1px;font-weight:700;}
-  .finalscore{font-size:3rem;color:var(--text-main);letter-spacing:2px;margin-bottom:8px;font-weight:700;}
-  .finalpct{font-size:1.2rem;color:var(--text-muted);margin-bottom:24px;font-weight:600;}
-  #finalMsg{font-size:1rem;line-height:1.8;color:var(--text-sub);margin-bottom:30px;}
+  #endScreen h2{font-size:1.6rem;color:var(--text-main);margin-bottom:20px;letter-spacing:1px;font-weight:800;}
+  .finalscore{font-size:3.5rem;color:var(--text-main);letter-spacing:2px;margin-bottom:8px;font-weight:800;}
+  .finalpct{font-size:1.2rem;color:var(--text-sub);margin-bottom:24px;font-weight:700;}
+  #finalMsg{font-size:1rem;line-height:1.8;color:var(--text-main);margin-bottom:30px;font-weight:600;}
 
   /* Summary Notes 錯題溫習區 */
   .summary-notes{
     text-align:left;
-    background:var(--bg-light);
-    border:1px solid var(--border);
+    background:#ffffff;
+    border:2px solid var(--border);
     border-radius:8px;
     padding:22px;
     margin-bottom:30px;
     max-height:420px;
     overflow-y:auto;
   }
-  .summary-notes h3{color:var(--text-main);font-size:1.15rem;margin-bottom:16px;border-bottom:2px solid var(--border);padding-bottom:10px;letter-spacing:1px;font-weight:700;}
+  .summary-notes h3{color:var(--text-main);font-size:1.15rem;margin-bottom:16px;border-bottom:3px solid var(--border);padding-bottom:10px;letter-spacing:1px;font-weight:800;}
   .note-item{
-    background:#ffffff;
-    border-left:4px solid var(--wrong-border);
+    background:var(--bg-light);
+    border-left:6px solid var(--border);
     padding:14px 16px;
     border-radius:0 6px 6px 0;
     margin-bottom:14px;
     font-size:.92rem;
     line-height:1.7;
-    color:var(--text-sub);
-    box-shadow:0 2px 6px rgba(0,0,0,0.03);
+    color:var(--text-main);
   }
-  .note-item .ntag{display:block;color:var(--text-main);font-size:.8rem;margin-bottom:8px;letter-spacing:0.5px;font-weight:700;text-transform:uppercase;}
-  .note-item b{color:var(--text-main);}
+  .note-item .ntag{display:block;color:var(--text-main);font-size:.85rem;margin-bottom:8px;letter-spacing:0.5px;font-weight:800;text-transform:uppercase;}
+  .note-item b{color:var(--text-main);font-weight:800;}
 
   @media(max-width:520px){
-    .card{padding:20px 16px;}
-    .qtext{font-size:1.1rem;}
+    .card{padding:20px 16px; border-width: 1px;}
+    .qtext{font-size:1.15rem;}
     #startScreen h1{font-size:1.5rem;}
     .finalscore{font-size:2.5rem;}
+    .option{font-size:1rem;}
   }
 </style>
 </head>
@@ -205,14 +217,14 @@
   <!-- ================= 開始畫面 ================= -->
   <section id="startScreen" class="card">
     <h1>🌍 Social Issues 轉述句挑戰</h1>
-    <p class="sub">Reported Speech × Pronouns × Questions × Commands</p>
+    <p class="sub">Tenses × Pronouns × Questions × Orders</p>
     <div class="rulebox">
-      根據 PDF 範圍，難度全面升級！<br>
-      • <b>Level 1</b>：1 個空格（代詞、物主詞、時間地點）<br>
-      • <b>Level 2</b>：2 個空格（混合代詞與時間地點）<br>
-      • <b>Level 3</b>：3 個空格（複雜問句、祈使句及多項轉換）<br><br>
+      根據 PDF 範圍及進階要求：<br>
+      • <b>時態轉換</b>：Present ➔ Past, Past ➔ Past Perfect, Will ➔ Would<br>
+      • <b>轉述問句</b>：Wh- 問句及 Yes/No 問句（注意語序及 if）<br>
+      • <b>命令與請求</b>：told/asked + object + (not) to-infinitive<br><br>
       ⏱ 彈性計時：Level 1 (20秒) ➔ Level 2 (25秒) ➔ Level 3 (30秒)<br>
-      📝 共 <b>40 題</b>｜答錯有中文詳解及最後總結
+      📝 共 <b>40 題</b>｜難度漸進 (1空 ➔ 2空 ➔ 3空)｜最後有錯題總結
     </div>
     <button class="bigbtn" onclick="startGame()">開始挑戰 ▶</button>
   </section>
@@ -261,55 +273,69 @@
 
 <script>
 /* ============================================================
-   題庫：40 題 (難度漸進：1個空格 ➔ 2個空格 ➔ 3個空格)
-   答案位置已完全手動打散，無規律可捉。
+   題庫：40 題
+   包含 Statements, Questions (Wh- / Yes-No), Orders/Requests
+   強調 Tense changes, Pronoun changes, Time/Place changes
    ============================================================ */
 const QUESTIONS = [
 
-  /* ---------- Level 1: 1 Blank (20 秒) ---------- */
-  { direct: '"I care about my environment," said Tom.', text: "Tom said he cared about ___ environment.", options: ["his","him","he","my"], answer: 0, tag: "Level 1 - 物主形容詞", explain: "直接引語的 <b>my</b> (我的) 跟隨主語 I 轉為 Tom，所以轉述時要變成 <b>his</b> (他的)。" },
-  { direct: '"This is our school," they said.', text: "They said ___ was their school.", options: ["this","that","these","those"], answer: 1, tag: "Level 1 - 指示代詞", explain: "轉述時，<b>This</b> (這個) 通常會變成 <b>that</b> (那個)，因為說話的時間和地點已經改變。" },
-  { direct: '"We need more hospitals here," the doctor said.', text: "The doctor said they needed more hospitals ___.", options: ["here","there","where","everywhere"], answer: 1, tag: "Level 1 - 地點轉換", explain: "直接引語的 <b>here</b> (這裡)，轉述時因為地點可能改變了，通常會變成 <b>there</b> (那裡)。" },
-  { direct: '"The charity gave me clothes yesterday," she said.', text: "She said the charity had given ___ clothes the day before.", options: ["me","her","she","hers"], answer: 1, tag: "Level 1 - 代詞 (受詞)", explain: "直接引語的 <b>me</b> 是指說話者 (她)，轉述時要變成 <b>her</b>。動詞 given 後面要接受詞。" },
-  { direct: '"I will vote for her," the man said.', text: "The man said he would vote for ___.", options: ["she","her","hers","himself"], answer: 1, tag: "Level 1 - 代詞 (受詞)", explain: "動詞片語 vote for 後面需要受詞，所以用 <b>her</b>。她是女性，所以用 her。" },
-  { direct: '"These problems are ours," the residents said.', text: "The residents said ___ problems were theirs.", options: ["this","that","these","those"], answer: 3, tag: "Level 1 - 指示代詞", explain: "轉述時，複數的 <b>these</b> (這些) 通常會變成 <b>those</b> (那些)。" },
-  { direct: '"Can you help us?" the old man asked.', text: "The old man asked if I could help ___.", options: ["we","us","them","they"], answer: 2, tag: "Level 1 - 代詞 (受詞)", explain: "直接引語的 <b>us</b> 是指老人們，轉述時要變成第三人稱的 <b>them</b>，作為 help 的受詞。" },
-  { direct: '"Don\'t waste food," the mother said to us.', text: "The mother told us ___ to waste food.", options: ["don't","not","to not","no"], answer: 1, tag: "Level 1 - 否定祈使句", explain: "轉述否定的命令時，使用 <b>not to + 動詞原形</b>。所以是 told us not to waste。" },
-  { direct: '"Where is my donation?" the donor asked.', text: "The donor asked where ___ donation was.", options: ["his","he","him","my"], answer: 0, tag: "Level 1 - 物主形容詞", explain: "直接引語的 <b>my</b> 是指捐贈者 (男性) 的，轉述時變成 <b>his</b>。後面有名詞 donation，用物主形容詞。" },
-  { direct: '"I am tired," the volunteer said.', text: "The volunteer said she was ___.", options: ["tired","tiring","tire","tiredly"], answer: 0, tag: "Level 1 - 形容詞", explain: "轉述時，形容詞本身不變。直接引語說 I am tired，轉述後主語變 she，動詞變 was，形容詞依然是 <b>tired</b>。" },
+  /* ---------- Level 1: 1 Blank (20 秒) - Focus on Tenses/Modals ---------- */
+  { direct: '"I am worried about the homeless," said Tom.', text: "Tom said he ___ worried about the homeless.", options: ["is","was","were","had been"], answer: 1, tag: "Level 1 - Tense Change", explain: "直接引語的現在式 <b>am</b>，轉述時要變成過去式 <b>was</b> (主語是 he)。" },
+  { direct: '"We need better healthcare," they said.', text: "They said they ___ better healthcare.", options: ["need","needed","had needed","needs"], answer: 1, tag: "Level 1 - Tense Change", explain: "直接引語的現在式 <b>need</b>，轉述時要變成過去式 <b>needed</b>。" },
+  { direct: '"I will join the protest tomorrow," she said.', text: "She said she ___ join the protest the next day.", options: ["will","would","can","could"], answer: 1, tag: "Level 1 - Modal Change", explain: "直接引語的 <b>will</b>，轉述時要變成 <b>would</b>。" },
+  { direct: '"I can help the poor," the man said.', text: "The man said he ___ help the poor.", options: ["can","could","would","should"], answer: 1, tag: "Level 1 - Modal Change", explain: "直接引語的 <b>can</b>，轉述時要變成 <b>could</b>。" },
+  { direct: '"My family is struggling," said the worker.', text: "The worker said ___ family was struggling.", options: ["my","his","her","their"], answer: 1, tag: "Level 1 - Pronoun Change", explain: "說話者 (worker) 是男性，<b>My</b> 要轉換成第三人稱的 <b>his</b>。" },
+  { direct: '"We are building a shelter here," he said.', text: "He said they were building a shelter ___.", options: ["here","there","where","everywhere"], answer: 1, tag: "Level 1 - Place Change", explain: "直接引語的 <b>here</b> (這裡)，轉述時要變成 <b>there</b> (那裡)。" },
+  { direct: '"This problem is serious," said the mayor.', text: "The mayor said ___ problem was serious.", options: ["this","that","these","those"], answer: 1, tag: "Level 1 - Demonstrative", explain: "轉述時，<b>this</b> (這個) 通常會變成 <b>that</b> (那個)。" },
+  { direct: '"I saw the pollution yesterday," he said.', text: "He said he had seen the pollution ___.", options: ["yesterday","the day before","tomorrow","the next day"], answer: 1, tag: "Level 1 - Time Change", explain: "直接引語的 <b>yesterday</b>，轉述時要變成 <b>the day before</b>。" },
+  { direct: '"The government must act now," they said.', text: "They said the government ___ act then.", options: ["must","had to","has to","could"], answer: 1, tag: "Level 1 - Modal Change", explain: "直接引語的 <b>must</b> 表示必須，轉述時通常變成 <b>had to</b>。" },
+  { direct: '"We have started a campaign," she said.', text: "She said they ___ started a campaign.", options: ["have","had","has","were"], answer: 1, tag: "Level 1 - Tense Change", explain: "直接引語的現在完成式 <b>have started</b>，轉述時要變成過去完成式 <b>had started</b>。" },
 
-  /* ---------- Level 2: 2 Blanks (25 秒) ---------- */
-  { direct: '"I will change my policy tomorrow," the mayor said.', text: "The mayor said he would change ___ policy ___.", options: ["his / the next day","her / tomorrow","his / tomorrow","her / the next day"], answer: 0, tag: "Level 2 - 物主詞 + 時間", explain: "<b>my</b> 變 <b>his</b> (市長是男性)；<b>tomorrow</b> 變 <b>the next day</b> (或 the following day)。" },
-  { direct: '"We planted these trees here last year," the students said.', text: "The students said they had planted ___ trees ___ the year before.", options: ["these / here","those / there","those / here","these / there"], answer: 1, tag: "Level 2 - 指示詞 + 地點", explain: "<b>these</b> (複數) 變 <b>those</b>；<b>here</b> 變 <b>there</b>。後面的 last year 已經轉為 the year before。" },
-  { direct: '"Please give me some water," the worker asked me.', text: "The worker asked me ___ give ___ some water.", options: ["to / him","to / me","for / him","not to / him"], answer: 0, tag: "Level 2 - 轉述請求", explain: "轉述請求用 ask someone <b>to</b> do something；<b>me</b> 轉述為第三人稱 <b>him</b> (工人)。" },
-  { direct: '"Do you support our campaign?" the activist asked us.', text: "The activist asked us if we supported ___ campaign.", options: ["your","our","their","them"], answer: 2, tag: "Level 2 - 物主形容詞", explain: "這是一條 Yes/No 問句，用 if 連接。直接引語的 <b>our</b> 指發起活動的人，轉述時要變成 <b>their</b>。" },
-  { direct: '"I lost my job yesterday," the man explained.', text: "The man explained that he had lost ___ job ___.", options: ["his / the day before","my / yesterday","his / yesterday","my / the day before"], answer: 0, tag: "Level 2 - 物主詞 + 時間", explain: "<b>my</b> 變 <b>his</b>；<b>yesterday</b> 變 <b>the day before</b> (或 the previous day)。" },
-  { direct: '"How can we solve this crisis?" the student asked.', text: "The student asked how ___ could solve ___ crisis.", options: ["we / this","they / that","they / this","we / that"], answer: 1, tag: "Level 2 - 代詞 + 指示詞", explain: "轉述問句時，<b>we</b> 變 <b>they</b>；<b>this</b> 變 <b>that</b>。注意問句語序要改為「主語 + 動詞」。" },
-  { direct: '"You should apply for our housing scheme," she told me.', text: "She advised me to apply for ___ housing scheme.", options: ["her","their","our","hers"], answer: 0, tag: "Level 2 - 物主形容詞", explain: "直接引語的 <b>our</b> 指她那邊的計劃，轉述時變成 <b>her</b>。後面有名詞 scheme，用物主形容詞。" },
-  { direct: '"I am building a shelter for the poor here," he said.', text: "He said he was building a shelter for the poor ___.", options: ["here","there","where","everywhere"], answer: 1, tag: "Level 2 - 地點轉換", explain: "直接引語的 <b>here</b>，轉述時變成 <b>there</b>。動詞 am building 變 was building。" },
-  { direct: '"These laws affect us," the citizens said.', text: "The citizens said ___ laws affected ___.", options: ["these / us","those / them","those / us","these / them"], answer: 1, tag: "Level 2 - 指示詞 + 代詞", explain: "<b>These</b> 變 <b>those</b>；<b>us</b> 變 <b>them</b> (公民們)。動詞 affect 變 affected。" },
-  { direct: '"Will you join our protest tomorrow?" she asked me.', text: "She asked me if I would join ___ protest ___.", options: ["their / the next day","your / tomorrow","their / tomorrow","your / the next day"], answer: 0, tag: "Level 2 - 物主詞 + 時間", explain: "<b>our</b> 變 <b>their</b> (她的團體)；<b>tomorrow</b> 變 <b>the next day</b>。Yes/No 問句用 if 連接。" },
+  /* ---------- Level 2: 2 Blanks (25 秒) - Tense + Pronoun/Time/Place ---------- */
+  { direct: '"I will change my policy tomorrow," the mayor said.', text: "The mayor said he would change ___ policy ___.", options: ["his / the next day","her / tomorrow","his / tomorrow","her / the next day"], answer: 0, tag: "Level 2 - Pronoun + Time", explain: "市長是男性，<b>my</b> 變 <b>his</b>；<b>tomorrow</b> 變 <b>the next day</b>。" },
+  { direct: '"I lost my job yesterday," the man said.', text: "The man said he ___ lost his job ___.", options: ["has / yesterday","had / the day before","had / yesterday","has / the day before"], answer: 1, tag: "Level 2 - Tense + Time", explain: "直接引語的過去式 <b>lost</b> 變過去完成式 <b>had lost</b>；<b>yesterday</b> 變 <b>the day before</b>。" },
+  { direct: '"Please help us," the villagers asked.', text: "The villagers asked us ___ help ___.", options: ["to / them","to / us","for / them","not to / them"], answer: 0, tag: "Level 2 - Request + Pronoun", explain: "轉述請求用 ask someone <b>to</b> do something；<b>us</b> (村民) 轉述時變成 <b>them</b>。" },
+  { direct: '"Don\'t pollute this river," the ranger told them.', text: "The ranger told them ___ pollute ___ river.", options: ["to not / this","not to / that","not to / this","to not / that"], answer: 1, tag: "Level 2 - Order + Demonstrative", explain: "否定的命令用 <b>not to</b> pollute；<b>this</b> 轉述時變成 <b>that</b>。" },
+  { direct: '"We are fighting for our rights," they said.', text: "They said they ___ fighting for ___ rights.", options: ["are / our","were / their","were / our","are / their"], answer: 1, tag: "Level 2 - Tense + Pronoun", explain: "現在進行式 <b>are</b> 變過去進行式 <b>were</b>；<b>our</b> 變 <b>their</b> (他們的)。" },
+  { direct: '"I can see the pollution here," she said.', text: "She said she ___ see the pollution ___.", options: ["can / here","could / there","could / here","can / there"], answer: 1, tag: "Level 2 - Modal + Place", explain: "<b>can</b> 變 <b>could</b>；<b>here</b> 變 <b>there</b>。" },
+  { direct: '"You must apply for the subsidy," I told him.', text: "I told him he ___ apply for the subsidy.", options: ["must","had to","has to","could"], answer: 1, tag: "Level 2 - Modal Change", explain: "直接引語的 <b>must</b> 表示必須，轉述時變成過去式 <b>had to</b>。" },
+  { direct: '"I bought these clothes yesterday," she said.', text: "She said she had bought ___ clothes ___.", options: ["these / yesterday","those / the day before","those / yesterday","these / the day before"], answer: 1, tag: "Level 2 - Demonstrative + Time", explain: "<b>these</b> 變 <b>those</b>；<b>yesterday</b> 變 <b>the day before</b>。" },
+  { direct: '"Please don\'t ignore our request," the citizens said.', text: "The citizens asked us ___ ignore ___ request.", options: ["not to / their","to not / their","not to / our","to not / our"], answer: 0, tag: "Level 2 - Request + Pronoun", explain: "否定請求用 <b>not to</b> ignore；<b>our</b> (公民的) 轉述時變成 <b>their</b>。" },
+  { direct: '"We will build a new school here," the mayor said.', text: "The mayor said they ___ build a new school ___.", options: ["will / here","would / there","would / here","will / there"], answer: 1, tag: "Level 2 - Modal + Place", explain: "<b>will</b> 變 <b>would</b>；<b>here</b> 變 <b>there</b>。" },
 
-  /* ---------- Level 3: 3 Blanks (30 秒) ---------- */
-  { direct: '"We will protect our environment here," the group said.', text: "The group said ___ would protect ___ environment ___.", options: ["they / their / there","we / our / here","they / our / there","we / their / here"], answer: 0, tag: "Level 3 - 代詞 + 物主詞 + 地點", explain: "<b>We</b> 變 <b>they</b> (主語)；<b>our</b> 變 <b>their</b> (物主形容詞)；<b>here</b> 變 <b>there</b> (地點)。" },
-  { direct: '"Can you give me your feedback?" the teacher asked us.', text: "The teacher asked us if we could give ___ ___ feedback.", options: ["her / our","him / our","her / your","him / your"], answer: 0, tag: "Level 3 - 代詞 + 物主詞", explain: "老師 (女) 問我們 (us)。<b>me</b> 變 <b>her</b> (受詞)；<b>your</b> (你們的) 變 <b>our</b> (我們的，因為是我們給老師)。" },
-  { direct: '"I saw these problems here yesterday," the reporter said.', text: "The reporter said he had seen ___ problems ___ ___.", options: ["those / there / the day before","these / here / yesterday","those / here / the day before","these / there / yesterday"], answer: 0, tag: "Level 3 - 指示詞 + 地點 + 時間", explain: "<b>these</b> 變 <b>those</b>；<b>here</b> 變 <b>there</b>；<b>yesterday</b> 變 <b>the day before</b> (或 the previous day)。" },
-  { direct: '"Please tell them that I am waiting for my order," the customer said.', text: "The customer asked me to tell ___ that ___ was waiting for ___ order.", options: ["them / she / her","they / she / her","them / he / his","they / he / his"], answer: 0, tag: "Level 3 - 轉述請求 + 代詞", explain: "這是轉述請求 (asked me to tell)。<b>them</b> 保持不變；<b>I</b> 變 <b>she</b> (女顧客)；<b>my</b> 變 <b>her</b>。" },
-  { direct: '"We need to change this law for our children," the mothers said.', text: "The mothers said ___ needed to change ___ law for ___ children.", options: ["they / that / their","we / this / our","they / this / their","we / that / our"], answer: 0, tag: "Level 3 - 代詞 + 指示詞 + 物主詞", explain: "<b>We</b> 變 <b>they</b>；<b>this</b> 變 <b>that</b>；<b>our</b> 變 <b>their</b> (母親們的)。" },
-  { direct: '"I am organizing my meeting here tomorrow," she told me.', text: "She told me she was organizing ___ meeting ___ ___.", options: ["her / there / the next day","my / here / tomorrow","her / here / the next day","my / there / tomorrow"], answer: 0, tag: "Level 3 - 物主詞 + 地點 + 時間", explain: "<b>my</b> 變 <b>her</b>；<b>here</b> 變 <b>there</b>；<b>tomorrow</b> 變 <b>the next day</b>。" },
-  { direct: '"Will they accept our proposal today?" the team leader asked.', text: "The team leader asked if they would accept ___ proposal ___.", options: ["their / that day","our / today","their / today","our / that day"], answer: 0, tag: "Level 3 - 物主詞 + 時間", explain: "<b>our</b> 變 <b>their</b> (團隊的)；<b>today</b> 變 <b>that day</b>。用 if 連接 Yes/No 問句。" },
-  { direct: '"Why did you destroy these trees here?" the activist asked him.', text: "The activist asked him why ___ had destroyed ___ trees ___.", options: ["he / those / there","you / these / here","he / these / there","you / those / here"], answer: 0, tag: "Level 3 - 代詞 + 指示詞 + 地點", explain: "<b>you</b> 變 <b>he</b> (him)；<b>these</b> 變 <b>those</b>；<b>here</b> 變 <b>there</b>。注意問句要改為肯定句語序。" },
-  { direct: '"Don\'t pollute this river," the ranger said to the tourists.', text: "The ranger told the tourists ___ to pollute ___ river.", options: ["not / that","to / this","not / this","to / that"], answer: 0, tag: "Level 3 - 否定祈使句 + 指示詞", explain: "否定的命令用 <b>not</b> to pollute；<b>this</b> 變 <b>that</b> (那條河流)。" },
-  { direct: '"Can you explain why you need this money?" the donor asked the student.', text: "The donor asked the student if ___ could explain why ___ needed ___ money.", options: ["he / he / that","you / you / this","he / you / that","you / he / this"], answer: 0, tag: "Level 3 - 多重代詞轉換", explain: "學生是男性 (he)。第一個 <b>you</b> 變 <b>he</b>；第二個 <b>you</b> 變 <b>he</b>；<b>this</b> 變 <b>that</b>。" }
+  /* ---------- Level 3: Questions & Complex (25-30 秒) ---------- */
+  { direct: '"Where is the shelter?" the reporter asked.', text: "The reporter asked where the shelter ___.", options: ["is","was","were","had been"], answer: 1, tag: "Level 3 - Reported Question", explain: "轉述 Wh- 問句時，動詞 <b>is</b> 要變成過去式 <b>was</b>，且語序為主語 (the shelter) + 動詞。" },
+  { direct: '"Do you need help?" the volunteer asked me.', text: "The volunteer asked me ___ I ___ help.", options: ["that / need","if / needed","if / need","that / needed"], answer: 1, tag: "Level 3 - Yes/No Question", explain: "轉述 Yes/No 問句用 <b>if</b> 連接；動詞 <b>need</b> 變成過去式 <b>needed</b>。" },
+  { direct: '"What is the cause of poverty?" the student asked.', text: "The student asked what the cause of poverty ___.", options: ["is","was","were","are"], answer: 1, tag: "Level 3 - Reported Question", explain: "轉述問句時，動詞 <b>is</b> 變成 <b>was</b>，且保持「主語 + 動詞」的正常語序。" },
+  { direct: '"Can we solve this problem?" he asked.', text: "He asked ___ they ___ solve that problem.", options: ["if / can","if / could","that / could","that / can"], answer: 1, tag: "Level 3 - Yes/No Question", explain: "轉述 Yes/No 問句用 <b>if</b>；情態動詞 <b>can</b> 變成 <b>could</b>。" },
+  { direct: '"Why are you protesting here?" the police asked them.', text: "The police asked them why they ___ protesting ___.", options: ["are / here","were / there","were / here","are / there"], answer: 1, tag: "Level 3 - Wh- Question", explain: "現在進行式 <b>are</b> 變過去進行式 <b>were</b>；<b>here</b> 變 <b>there</b>。" },
+  { direct: '"Have you seen the report?" she asked me.', text: "She asked me ___ I ___ seen the report.", options: ["that / have","if / had","if / have","that / had"], answer: 1, tag: "Level 3 - Yes/No Question", explain: "Yes/No 問句用 <b>if</b>；現在完成式 <b>have seen</b> 變過去完成式 <b>had seen</b>。" },
+  { direct: '"How can I help the community?" I asked her.', text: "I asked her how I ___ help the community.", options: ["can","could","would","should"], answer: 1, tag: "Level 3 - Wh- Question", explain: "轉述問句時，情態動詞 <b>can</b> 變成 <b>could</b>。" },
+  { direct: '"Will you join our campaign tomorrow?" he asked me.', text: "He asked me ___ I would join ___ campaign the next day.", options: ["if / their","that / their","if / our","that / our"], answer: 0, tag: "Level 3 - Yes/No + Pronoun", explain: "Yes/No 問句用 <b>if</b>；<b>our</b> (他的團隊) 轉述時變成 <b>their</b>。" },
+  { direct: '"What did you buy yesterday?" she asked him.', text: "She asked him what he ___ bought ___.", options: ["has / yesterday","had / the day before","had / yesterday","has / the day before"], answer: 1, tag: "Level 3 - Wh- Question", explain: "過去式 <b>did buy</b> 變成過去完成式 <b>had bought</b>；<b>yesterday</b> 變 <b>the day before</b>。" },
+  { direct: '"Are they building a new hospital here?" the doctor asked.', text: "The doctor asked ___ they ___ building a new hospital ___.", options: ["if / were / there","that / were / there","if / are / here","that / are / here"], answer: 0, tag: "Level 3 - Yes/No Question", explain: "用 <b>if</b> 引導；<b>are</b> 變 <b>were</b>；<b>here</b> 變 <b>there</b>。" },
+
+  /* ---------- Level 4: 3 Blanks (30 秒) - Ultimate Challenge ---------- */
+  { direct: '"I am organizing a protest here tomorrow," she said.', text: "She said she ___ organizing a protest ___ ___.", options: ["was / there / the next day","is / here / tomorrow","was / here / the next day","is / there / tomorrow"], answer: 0, tag: "Level 4 - Tense + Place + Time", explain: "<b>am</b> 變 <b>was</b>；<b>here</b> 變 <b>there</b>；<b>tomorrow</b> 變 <b>the next day</b>。" },
+  { direct: '"Please tell them that I am waiting for my order," the customer said.', text: "The customer asked me to tell ___ that ___ was waiting for ___ order.", options: ["them / she / her","they / she / her","them / he / his","they / he / his"], answer: 0, tag: "Level 4 - Request + Pronoun", explain: "轉述請求 (asked me to tell)；<b>them</b> 不變；<b>I</b> 變 <b>she</b> (女顧客)；<b>my</b> 變 <b>her</b>。" },
+  { direct: '"Where did they put the recycling bins?" the resident asked.', text: "The resident asked where they ___ put the recycling bins ___.", options: ["have / there","had / there","had / here","have / here"], answer: 1, tag: "Level 4 - Question + Tense", explain: "過去式 <b>did put</b> 變過去完成式 <b>had put</b>；<b>there</b> 是轉述後的地點。" },
+  { direct: '"We must reduce pollution for our environment," they said.', text: "They said they ___ reduce pollution for ___ environment ___.", options: ["must / their / there","had to / their / there","had to / our / there","must / our / there"], answer: 1, tag: "Level 4 - Modal + Pronoun", explain: "<b>must</b> 變 <b>had to</b>；<b>our</b> 變 <b>their</b>。" },
+  { direct: '"Do you support our campaign?" the activist asked us.', text: "The activist asked us ___ we ___ ___ campaign.", options: ["if / supported / their","if / support / their","that / supported / our","that / support / our"], answer: 0, tag: "Level 4 - Yes/No Question", explain: "用 <b>if</b>；現在式 <b>support</b> 變過去式 <b>supported</b>；<b>our</b> 變 <b>their</b>。" },
+  { direct: '"Don\'t throw rubbish here," the guard told us.', text: "The guard told us ___ throw rubbish ___ ___.", options: ["not to / there / then","to not / there / then","not to / here / now","to not / here / now"], answer: 0, tag: "Level 4 - Negative Order", explain: "<b>not to</b> throw；<b>here</b> 變 <b>there</b>；<b>now</b> 轉為轉述時的 <b>then</b> (或省略)。" },
+  { direct: '"I will donate my money here tomorrow," he said.', text: "He said he ___ donate ___ money ___ the next day.", options: ["would / his / there","will / his / there","would / my / here","will / my / here"], answer: 0, tag: "Level 4 - Modal + Pronoun + Place", explain: "<b>will</b> 變 <b>would</b>；<b>my</b> 變 <b>his</b>；<b>here</b> 變 <b>there</b> (後面的 the next day 已經轉換)。" },
+  { direct: '"How can we change this law?" the mothers asked.', text: "The mothers asked how they ___ change ___ law.", options: ["can / this","could / that","could / this","can / that"], answer: 1, tag: "Level 4 - Wh- Question + Modal", explain: "轉述問句用主語+動詞語序；<b>can</b> 變 <b>could</b>；<b>this</b> 變 <b>that</b>。" },
+  { direct: '"Have you finished your report?" the manager asked him.', text: "The manager asked him ___ he ___ finished ___ report.", options: ["if / had / his","if / has / his","that / had / her","that / has / her"], answer: 0, tag: "Level 4 - Yes/No Question + Tense", explain: "用 <b>if</b>；<b>have finished</b> 變 <b>had finished</b>；<b>your</b> (他的) 變 <b>his</b>。" },
+  { direct: '"You should apply for this job," I told her.', text: "I advised her ___ apply for ___ job.", options: ["to / that","should / that","to / this","should / this"], answer: 0, tag: "Level 4 - Advice/Order + Demonstrative", explain: "轉述建議用 advise someone <b>to</b> do something；<b>this</b> 變 <b>that</b>。" }
 ];
 
 /* ============================================================
    彈性計時：按題目難度決定每題秒數
    ============================================================ */
 function getQuestionTimeLimit(index){
-  if (index < 10) return 20; // Level 1
-  if (index < 25) return 25; // Level 2 (15題)
-  return 30;                 // Level 3 (15題)
+  if (index < 10) return 20; // Level 1 (1 blank)
+  if (index < 20) return 25; // Level 2 (2 blanks)
+  if (index < 30) return 25; // Level 3 (Questions & 2 blanks)
+  return 30;                 // Level 4 (3 blanks)
 }
 
 /* ============================================================
@@ -395,9 +421,7 @@ function renderTimer(){
   const pct = (timeLeft / currentTimeLimit) * 100;
   const bar = document.getElementById("timerBar");
   bar.style.width = pct + "%";
-  bar.style.background = timeLeft <= 6
-    ? "#000000" 
-    : "#333333";
+  bar.style.background = timeLeft <= 6 ? "#000000" : "#333333";
   document.getElementById("timerText").textContent = Math.ceil(timeLeft) + "s";
 }
 
@@ -479,9 +503,9 @@ function showEnd(){
   document.getElementById("finalPct").textContent = `${pct}%`;
 
   let msg = "";
-  if (pct >= 90) msg = "太厲害了！你已經完全掌握轉述句的代詞、時間地點及句型轉換！🎉";
+  if (pct >= 90) msg = "太厲害了！你已經完全掌握轉述句的代詞、時態、時間地點及問句轉換！🎉";
   else if (pct >= 75) msg = "很好！再溫習下面嘅錯題重點，你就會更加穩。💪";
-  else if (pct >= 50) msg = "不錯，但仍要小心！記得轉述時要注意「代詞改變」、「時間地點轉移」同埋「問句語序」。";
+  else if (pct >= 50) msg = "不錯，但仍要小心！記得轉述時要注意「時態倒退」、「代詞改變」、「時間地點轉移」同埋「問句語序」。";
   else msg = "再努力一次！<br>口訣：<b>一變代詞，二變時態，三變時間地點，四注意問句語序及 to-infinitive。</b>";
 
   document.getElementById("finalMsg").innerHTML = msg;
@@ -501,7 +525,7 @@ function showEnd(){
           <span class="ntag">重點：${item.tag}</span>
           ${item.direct ? `<div style="margin-bottom:8px; color:#666; font-style:italic;">原句：${item.direct}</div>` : ''}
           <div style="margin-bottom:8px;">題目：${item.question.replace(/___/g, '_______')}</div>
-          <div style="margin-bottom:8px; color:#c5221f; font-weight:600;">你答咗：${item.chosen} (正確答案：<b>${item.correct}</b>)</div>
+          <div style="margin-bottom:8px; color:#000000; font-weight:800;">你答咗：${item.chosen} (正確答案：${item.correct})</div>
           <div style="color:#333; font-size:0.9rem; line-height:1.6;">${item.explain}</div>
         </div>
       `;
